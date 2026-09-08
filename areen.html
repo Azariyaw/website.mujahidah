@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sylvania Unbox Club — Game Buka Blindbox</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+:root{
+  --paper:#F7EFDE; --cream:#FFF8EA; --ink:#4A3524; --brown:#6B4A32;
+  --terra:#C4553B; --sage:#7E9A6B; --gold:#D9A13B; --foil:#D9B45B; --line:#E3D2B8;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html,body{height:100%}
+body{
+  font-family:'Nunito',sans-serif; color:var(--ink); background:var(--paper);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='4' cy='4' r='1.7' fill='%23E7D6B6'/%3E%3Ccircle cx='19' cy='19' r='1.7' fill='%23EADCC0'/%3E%3C/svg%3E");
+  overflow-x:hidden;
+}
+button{font-family:inherit; cursor:pointer; color:inherit}
+img{display:block}
+svg{display:block}
+.hidden{display:none!important}
+i.lu{width:18px;height:18px}
+i.lu svg{width:18px;height:18px;stroke-width:2.4}
+
+/* ---------- Header ---------- */
+header{
+  position:relative; background:var(--cream); padding:14px clamp(16px,4vw,42px);
+  display:flex; align-items:center; gap:18px; flex-wrap:wrap; z-index:10;
+}
+header::after{
+  content:''; position:absolute; left:0; right:0; top:100%; height:12px; z-index:9;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='12'%3E%3Cpath d='M0 0h26v3a13 9 0 0 1-26 0z' fill='%23FFF8EA'/%3E%3C/svg%3E") repeat-x;
+  filter:drop-shadow(0 2px 0 rgba(74,53,36,.07));
+}
+.brand{display:flex; align-items:center; gap:11px; margin-right:auto}
+.brand .mark{
+  width:42px;height:42px; background:var(--terra); border:2.5px solid var(--ink);
+  border-radius:9px; display:grid; place-items:center; position:relative;
+  box-shadow:3px 3px 0 var(--ink); transform:rotate(-4deg);
+}
+.brand .mark::before{content:''; position:absolute; inset:6px 15px; background:var(--cream); border-radius:3px}
+.brand .mark::after{content:''; position:absolute; inset:15px 6px; background:var(--cream); border-radius:3px}
+.brand h1{font-family:'Lilita One'; font-size:1.45rem; letter-spacing:.4px; line-height:1}
+.brand h1 small{display:block; font-family:'Nunito'; font-weight:800; font-size:.66rem; letter-spacing:2.4px; color:var(--terra); text-transform:uppercase}
+nav{display:flex; gap:8px; flex-wrap:wrap}
+.navbtn{
+  display:flex; align-items:center; gap:7px; border:2px solid transparent; background:transparent;
+  font-weight:800; font-size:.9rem; padding:8px 13px; border-radius:11px; transition:.15s;
+}
+.navbtn:hover{background:#F2E4C9}
+.navbtn.on{background:var(--ink); color:var(--cream)}
+#btnSound{border:2px solid var(--ink); background:var(--cream); width:40px;height:40px; border-radius:11px; display:grid; place-items:center; box-shadow:2.5px 2.5px 0 var(--ink)}
+#btnSound:active{transform:translate(2px,2px); box-shadow:none}
+
+main{max-width:1120px; margin:0 auto; padding:38px clamp(14px,3.5vw,32px) 90px}
+
+/* ---------- Tombol gaya mainan ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:9px; border:2.5px solid var(--ink);
+  background:var(--terra); color:#FFF6EA; font-weight:800; font-size:1rem;
+  padding:12px 22px; border-radius:14px; box-shadow:4px 4px 0 var(--ink);
+  transition:transform .12s, box-shadow .12s;
+}
+.btn:hover{transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px); box-shadow:1px 1px 0 var(--ink)}
+.btn.ghost{background:var(--cream); color:var(--ink)}
+.btn.small{padding:8px 14px; font-size:.85rem; border-radius:10px; box-shadow:3px 3px 0 var(--ink)}
+.btn.smile{background:var(--sage)}
+
+/* ---------- Hero ---------- */
+.hero{display:grid; grid-template-columns:1.05fr .95fr; gap:34px; align-items:center; margin-bottom:52px}
+.eyebrow{font-weight:800; letter-spacing:2.6px; text-transform:uppercase; font-size:.72rem; color:var(--terra); margin-bottom:12px}
+.hero h2{font-family:'Lilita One'; font-size:clamp(2.1rem,4.6vw,3.3rem); line-height:1.06; margin-bottom:16px}
+.hero h2 em{font-style:normal; color:var(--terra); position:relative; white-space:nowrap}
+.hero h2 em svg{position:absolute; left:0; bottom:-9px; width:100%; height:10px}
+.hero p{font-size:1.05rem; line-height:1.65; font-weight:600; color:#6d523c; max-width:46ch; margin-bottom:22px}
+.hero-cta{display:flex; gap:13px; flex-wrap:wrap; margin-bottom:18px}
+.hero-stat{font-weight:800; font-size:.86rem; color:#8a6c50; display:flex; align-items:center; gap:7px}
+.hero-stat b{color:var(--terra)}
+.hero-stage{position:relative; display:grid; place-items:center; padding:26px 0 6px}
+.hero-stage::before{
+  content:''; position:absolute; bottom:8px; width:78%; height:30px;
+  background:radial-gradient(ellipse at center, rgba(74,53,36,.22), transparent 68%);
+}
+.spark{position:absolute; color:var(--gold); animation:tw 2.4s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.25; transform:scale(.8) rotate(0)}50%{opacity:1; transform:scale(1.1) rotate(18deg)}}
+
+/* ---------- Kotak 3D ---------- */
+.scene{
+  --s:250px; --hs:calc(var(--s)/2);
+  position:relative; width:var(--s); height:var(--s); perspective:950px;
+}
+.shaker{position:absolute; inset:0}
+.shaker.shaking{animation:shk .5s ease}
+@keyframes shk{
+  0%,100%{transform:translateX(0) rotate(0)}
+  15%{transform:translateX(calc(var(--amp)*-1)) rotate(calc(var(--rot)*-1))}
+  35%{transform:translateX(var(--amp)) rotate(var(--rot))}
+  55%{transform:translateX(calc(var(--amp)*-.7)) rotate(calc(var(--rot)*-.7))}
+  75%{transform:translateX(calc(var(--amp)*.5)) rotate(calc(var(--rot)*.5))}
+}
+.box3d{position:absolute; inset:0; transform-style:preserve-3d}
+.bface{
+  position:absolute; inset:0; backface-visibility:hidden; border-radius:7px;
+  background-color:var(--c1);
+  background-image:radial-gradient(rgba(255,248,234,.34) 2.1px, transparent 2.6px);
+  background-size:22px 22px;
+  box-shadow:inset 0 0 0 3px rgba(74,53,36,.14), inset 0 -14px 0 rgba(74,53,36,.1);
+  transition:transform .75s cubic-bezier(.22,.9,.32,1.04), opacity .6s;
+}
+.bf-front{transform:translateZ(var(--hs))}
+.bf-back{transform:rotateY(180deg) translateZ(var(--hs))}
+.bf-left{transform:rotateY(-90deg) translateZ(var(--hs))}
+.bf-right{transform:rotateY(90deg) translateZ(var(--hs))}
+.bf-top{transform:rotateX(90deg) translateZ(var(--hs))}
+.bf-bottom{transform:rotateX(-90deg) translateZ(var(--hs)); background-color:var(--c2)}
+/* pita di sisi samping */
+.bf-side::before,.bf-side::after{content:''; position:absolute; background:var(--c2); opacity:.92}
+.bf-side::before{left:38%; right:38%; top:0; bottom:0; box-shadow:inset 0 0 0 2px rgba(74,53,36,.12)}
+.bf-side::after{top:38%; bottom:38%; left:0; right:0; box-shadow:inset 0 0 0 2px rgba(74,53,36,.12)}
+.bf-back.bf-side::after{display:none}
+/* pita silang di tutup */
+.bf-top::before,.bf-top::after{content:''; position:absolute; background:var(--c2); opacity:.92; box-shadow:inset 0 0 0 2px rgba(74,53,36,.12)}
+.bf-top::before{left:34%; right:34%; top:0; bottom:0}
+.bf-top::after{top:34%; bottom:34%; left:0; right:0}
+.bf-top .knot{
+  position:absolute; left:50%; top:50%; width:26%; aspect-ratio:1; transform:translate(-50%,-50%);
+  background:var(--c2); border-radius:50%; box-shadow:inset 0 0 0 2.5px rgba(74,53,36,.16);
+}
+/* wajah depan kotak */
+.bff{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; padding:10px}
+.bff-tag{font-weight:800; font-size:.58rem; letter-spacing:2.2px; background:var(--cream); color:var(--brown); padding:3px 10px; border-radius:20px; border:1.5px solid rgba(74,53,36,.25)}
+.bff-name{font-family:'Lilita One'; color:#FFF6EA; font-size:.95rem; text-align:center; line-height:1.15; text-shadow:1.5px 1.5px 0 rgba(74,53,36,.55); padding:0 6px}
+.bff-sub{font-size:.62rem; font-weight:800; color:rgba(255,246,234,.9); letter-spacing:.4px}
+.bff.onphoto{justify-content:flex-end; padding-bottom:14px; position:absolute; inset:0}
+.bff-photo{position:absolute; inset:0; background-size:cover; background-position:center; border-radius:7px}
+.bff.onphoto .bff-name{background:rgba(74,53,36,.78); padding:6px 12px; border-radius:9px}
+.bff.onphoto .bff-tag{position:absolute; top:10px}
+/* interior */
+.bin i{position:absolute; inset:0; background:#57422F; backface-visibility:visible; border-radius:4px; box-shadow:inset 0 0 22px rgba(0,0,0,.35)}
+.bin .bib{box-shadow:inset 0 0 30px rgba(0,0,0,.3); transition:background 1s .3s}
+.box3d.open .bib{background:radial-gradient(circle at 50% 42%, rgba(255,213,133,.6), rgba(87,66,47,0) 62%), #57422F}
+/* animasi buka: mekar */
+.box3d.open .bf-top{transform:rotateX(90deg) translateZ(calc(var(--hs)*2.55)) rotateZ(27deg); transition:transform .9s cubic-bezier(.3,1.35,.45,1), opacity .9s}
+.box3d.open .bf-front{transform:translateZ(var(--hs)) rotateX(-104deg); transform-origin:50% 100%; transition-delay:.08s}
+.box3d.open .bf-back{transform:rotateY(180deg) translateZ(var(--hs)) rotateX(-104deg); transform-origin:50% 100%; transition-delay:.12s}
+.box3d.open .bf-left{transform:rotateY(-90deg) translateZ(var(--hs)) rotateY(-104deg); transform-origin:0% 50%; transition-delay:.15s}
+.box3d.open .bf-right{transform:rotateY(90deg) translateZ(var(--hs)) rotateY(104deg); transform-origin:100% 50%; transition-delay:.15s}
+.ground-shadow{position:absolute; left:15%; right:15%; bottom:-16px; height:26px; background:radial-gradient(ellipse at center, rgba(58,42,30,.32), transparent 68%)}
+.hero-box .box3d{animation:heroSpin 16s linear infinite}
+@keyframes heroSpin{from{transform:rotateX(-9deg) rotateY(0)}to{transform:rotateX(-9deg) rotateY(360deg)}}
+.hero-box .scene{--s:216px; transition:opacity .25s}
+
+/* ---------- Jendela karakter ---------- */
+.win{width:100%; aspect-ratio:1; border-radius:50%; background:var(--cream); border:3px solid rgba(74,53,36,.16); display:grid; place-items:center; overflow:hidden}
+.win svg{width:88%; height:88%}
+.win img{width:100%; height:100%; object-fit:cover}
+
+/* ---------- Rak ---------- */
+.shelf-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 6px}
+.shelf-head h3{font-family:'Lilita One'; font-size:1.5rem}
+.shelf-head span{font-weight:700; color:#8a6c50; font-size:.9rem}
+.shelf-head .btn{margin-left:auto}
+.shelf-block{margin-bottom:34px}
+.shelf-row{
+  display:flex; justify-content:center; align-items:flex-end; gap:clamp(10px,2.4vw,26px);
+  padding:26px 14px 0; position:relative; flex-wrap:wrap;
+}
+.shelf-row::after{
+  content:''; position:absolute; left:-8px; right:-8px; bottom:-4px; height:17px;
+  background:#BE8F60; border:2.5px solid #8F6238; border-radius:6px;
+  box-shadow:0 5px 0 rgba(74,53,36,.18), inset 0 -5px 0 rgba(74,53,36,.18);
+}
+.mini{
+  position:relative; width:clamp(126px,22vw,168px); border:2.5px solid rgba(74,53,36,.2);
+  border-radius:12px 12px 9px 9px; background-color:var(--c1);
+  background-image:radial-gradient(rgba(255,248,234,.32) 2px, transparent 2.6px); background-size:20px 20px;
+  display:flex; flex-direction:column; align-items:center; gap:7px; padding:12px 10px 13px;
+  transform:rotate(var(--tilt)); margin-bottom:22px; transition:transform .18s, box-shadow .18s;
+  box-shadow:0 6px 0 rgba(74,53,36,.15); z-index:1;
+}
+.mini::before{content:''; position:absolute; left:39%; right:39%; top:0; bottom:0; background:var(--c2); opacity:.9; border-radius:3px}
+.mini:hover{transform:rotate(0) translateY(-9px); box-shadow:0 14px 0 rgba(74,53,36,.16); z-index:2}
+.mini .m-tag{font-size:.54rem; font-weight:800; letter-spacing:1.8px; color:#FFF6EA; background:rgba(74,53,36,.4); padding:2px 9px; border-radius:12px; z-index:1}
+.mini .m-win{width:60%; z-index:1; border-width:2.5px}
+.mini .m-name{font-family:'Lilita One'; font-size:.92rem; color:#FFF6EA; text-shadow:1.4px 1.4px 0 rgba(74,53,36,.5); line-height:1.1; text-align:center; z-index:1}
+.mini .m-sub{font-size:.64rem; font-weight:800; color:rgba(255,246,234,.92); z-index:1}
+.mini .mini-del{
+  position:absolute; top:-9px; right:-9px; width:27px; height:27px; border-radius:50%;
+  background:var(--cream); border:2px solid var(--ink); display:none; place-items:center; z-index:3;
+}
+.mini:hover .mini-del{display:grid}
+.badge-custom{
+  position:absolute; top:-11px; left:-9px; background:var(--gold); color:var(--ink);
+  font-size:.6rem; font-weight:800; padding:3px 9px; border-radius:9px; border:2px solid var(--ink); z-index:3; transform:rotate(-5deg);
+}
+.shelf-empty{
+  border:2.5px dashed #c9ae83; border-radius:16px; padding:26px; text-align:center;
+  font-weight:700; color:#8a6c50; margin:14px auto 24px; max-width:520px;
+}
+.shelf-empty .btn{margin-top:12px}
+
+/* ---------- Panel info & panggung ---------- */
+.panel{background:var(--cream); border:2.5px solid var(--ink); border-radius:18px; box-shadow:6px 6px 0 rgba(74,53,36,.9); padding:22px}
+.play-grid{display:grid; grid-template-columns:340px 1fr; gap:24px; align-items:start}
+.play-side h2{font-family:'Lilita One'; font-size:1.6rem; line-height:1.1; margin-bottom:8px}
+.play-side .desc{font-weight:600; color:#6d523c; line-height:1.55; font-size:.93rem; margin-bottom:14px}
+.odds{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px}
+.odds span{font-size:.68rem; font-weight:800; padding:3px 10px; border-radius:20px; border:1.5px solid; background:#fff0}
+.lineup-t{font-weight:800; font-size:.78rem; letter-spacing:1.6px; text-transform:uppercase; color:#8a6c50; margin-bottom:9px}
+.lineup{display:grid; grid-template-columns:repeat(3,1fr); gap:11px; margin-bottom:18px}
+.lu-it{position:relative; display:grid; place-items:center}
+.lu-it .win{width:100%; border-width:2.5px}
+.lu-it:not(.got) .win{filter:grayscale(1); opacity:.5}
+.lu-it .qm{position:absolute; inset:0; display:grid; place-items:center; font-family:'Lilita One'; font-size:1.5rem; color:var(--brown)}
+.hist-t{font-weight:800; font-size:.78rem; letter-spacing:1.6px; text-transform:uppercase; color:#8a6c50; margin:0 0 9px}
+.history{display:flex; gap:8px; flex-wrap:wrap; min-height:42px}
+.history .win{width:42px; border-width:2px; animation:popin .35s cubic-bezier(.2,1.4,.4,1)}
+@keyframes popin{from{transform:scale(.4); opacity:0}to{transform:scale(1); opacity:1}}
+.stage{
+  position:relative; height:470px; border-radius:18px; overflow:hidden;
+  border:2.5px solid var(--ink); box-shadow:6px 6px 0 rgba(74,53,36,.9);
+  background-color:#F3E6CD;
+  background-image:radial-gradient(rgba(214,186,141,.5) 1.6px, transparent 2.2px); background-size:24px 24px;
+  display:flex; align-items:flex-end; justify-content:center;
+}
+.stage::after{
+  content:''; position:absolute; left:0; right:0; bottom:0; height:24%;
+  background:
+    repeating-linear-gradient(90deg, rgba(74,53,36,.22) 0 2.5px, transparent 2.5px 72px),
+    repeating-linear-gradient(0deg, rgba(255,248,234,.14) 0 2px, transparent 2px 26px),
+    #C89B6D;
+  border-top:3px solid rgba(74,53,36,.35);
+}
+.stage .scene{--s:246px; margin-bottom:44px; z-index:1; touch-action:none}
+.stage-label{
+  position:absolute; top:16px; left:50%; transform:translateX(-50%); z-index:2;
+  font-family:'Lilita One'; font-size:1.05rem; color:var(--brown);
+  background:var(--cream); border:2px solid var(--ink); padding:5px 18px; border-radius:14px; box-shadow:3px 3px 0 var(--ink);
+  max-width:90%; text-align:center;
+}
+.stage .grab{position:absolute; bottom:12px; right:14px; z-index:2; color:rgba(74,53,36,.55)}
+.stage-toolbar{display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:16px}
+.meterwrap{display:flex; align-items:center; gap:9px; margin-right:auto}
+.meterwrap .lbl{font-size:.76rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:#8a6c50}
+.meter{display:flex; gap:6px}
+.meter i{width:15px; height:15px; border-radius:50%; border:2px solid var(--ink); background:var(--cream); transition:.15s}
+.meter i.on{background:var(--terra); transform:scale(1.12)}
+.hint{font-size:.8rem; font-weight:700; color:#8a6c50}
+
+/* ---------- Overlay reveal ---------- */
+.overlay{position:fixed; inset:0; z-index:50; display:grid; place-items:center; background:rgba(43,31,22,.62); backdrop-filter:blur(3px); padding:18px}
+.rv-burst{position:absolute; width:min(78vmin,560px); aspect-ratio:1; animation:spin 26s linear infinite; opacity:.9}
+.rv-burst svg g{fill:#F1DCAE}
+.rv-burst.gold svg g{fill:#E8C46A}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rv-card{
+  position:relative; width:min(370px,92vw); background:var(--cream); border:3px solid var(--ink);
+  border-radius:22px; box-shadow:9px 9px 0 rgba(30,20,12,.55); padding:26px 24px 22px;
+  display:flex; flex-direction:column; align-items:center; gap:11px; text-align:center;
+  animation:cardIn .55s cubic-bezier(.2,1.35,.4,1);
+}
+@keyframes cardIn{from{transform:scale(.5) translateY(70px); opacity:0}to{transform:scale(1) translateY(0); opacity:1}}
+.rv-card.secret{border-color:var(--foil); box-shadow:0 0 0 3px rgba(232,196,106,.35), 9px 9px 0 rgba(30,20,12,.55)}
+.rv-close{position:absolute; top:-14px; right:-14px; width:38px; height:38px; border-radius:50%; background:var(--ink); color:var(--cream); border:2.5px solid var(--cream); display:grid; place-items:center}
+.rv-ribbon{font-family:'Lilita One'; font-size:.86rem; letter-spacing:2px; text-transform:uppercase; color:#FFF6EA; background:var(--rc); padding:5px 20px; border-radius:20px; border:2px solid var(--ink); box-shadow:2.5px 2.5px 0 var(--ink)}
+.rv-win{width:172px; border-width:3px}
+.rv-name{font-family:'Lilita One'; font-size:1.7rem; line-height:1.05}
+.rv-meta{font-weight:700; font-size:.84rem; color:#8a6c50}
+.rv-new{font-weight:800; color:var(--sage); font-size:.86rem; letter-spacing:1px}
+.rv-dup{font-weight:800; color:var(--terra); font-size:.86rem}
+.rv-btns{display:flex; gap:11px; margin-top:8px; flex-wrap:wrap; justify-content:center}
+
+/* ---------- Album ---------- */
+.chips{display:flex; gap:9px; flex-wrap:wrap; margin:16px 0 24px}
+.chip{border:2px solid var(--ink); background:var(--cream); font-weight:800; font-size:.84rem; padding:7px 15px; border-radius:20px; box-shadow:2.5px 2.5px 0 rgba(74,53,36,.85); transition:.12s}
+.chip.on{background:var(--ink); color:var(--cream)}
+.chip:active{transform:translate(2px,2px); box-shadow:none}
+.album-top{display:flex; align-items:center; gap:16px; flex-wrap:wrap}
+.album-top h2{font-family:'Lilita One'; font-size:1.9rem}
+.progress{margin-left:auto; font-weight:800; color:#8a6c50}
+.progress b{color:var(--terra); font-size:1.2rem}
+.agrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:20px}
+.acard{
+  background:var(--cream); border:2.5px solid var(--ink); border-radius:16px; padding:15px 12px 13px;
+  display:flex; flex-direction:column; align-items:center; gap:8px; position:relative;
+  box-shadow:4px 4px 0 rgba(74,53,36,.85); transition:transform .15s;
+}
+.acard:hover{transform:translateY(-5px) rotate(-1deg)}
+.acard.locked{border-style:dashed; border-color:#bfa57c; box-shadow:4px 4px 0 rgba(74,53,36,.3)}
+.acard.locked .win{background:#EFE3CB; border-color:#d9c49d}
+.acard .qmark{font-family:'Lilita One'; font-size:2.4rem; color:#c4ab80}
+.acard.sec .win{border-color:var(--foil); box-shadow:0 0 0 3px rgba(232,196,106,.4)}
+.acard-name{font-weight:800; font-size:.92rem; text-align:center; line-height:1.2}
+.acard-r{font-size:.62rem; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:#FFF6EA; background:var(--rc); padding:2.5px 11px; border-radius:12px}
+.dup{position:absolute; top:-10px; right:-8px; background:var(--gold); border:2px solid var(--ink); font-weight:800; font-size:.72rem; padding:2px 9px; border-radius:12px}
+
+/* ---------- Studio ---------- */
+.studio-grid{display:grid; grid-template-columns:330px 1fr; gap:24px; align-items:start; margin-top:20px}
+.studio-grid h2{font-family:'Lilita One'; font-size:1.7rem}
+.studio-sub{font-weight:600; color:#6d523c; margin-top:5px; line-height:1.5; font-size:.94rem}
+.field{margin-bottom:16px}
+.field label{display:block; font-weight:800; font-size:.78rem; letter-spacing:1.4px; text-transform:uppercase; color:#8a6c50; margin-bottom:7px}
+.field input[type=text]{
+  width:100%; border:2px solid var(--ink); border-radius:11px; background:#fff; font-family:inherit;
+  font-weight:700; font-size:.95rem; padding:10px 13px; color:var(--ink);
+}
+.field input[type=text]:focus{outline:3px solid rgba(196,85,59,.3)}
+.swatches{display:flex; gap:9px; flex-wrap:wrap}
+.swatch{width:34px; height:34px; border-radius:10px; border:2px solid var(--ink); box-shadow:2px 2px 0 rgba(74,53,36,.5); transition:.12s}
+.swatch.on{transform:scale(1.15); outline:3px solid rgba(196,85,59,.45)}
+.upl{display:flex; align-items:center; gap:12px}
+.upl .btn{flex-shrink:0}
+.upl-hint{font-size:.78rem; font-weight:700; color:#8a6c50; line-height:1.4}
+.flatbox{
+  width:190px; margin:6px auto 2px; border:2.5px solid rgba(74,53,36,.2); border-radius:12px;
+  background-color:var(--c1);
+  background-image:radial-gradient(rgba(255,248,234,.32) 2px, transparent 2.6px); background-size:20px 20px;
+  padding:13px 10px; display:flex; flex-direction:column; align-items:center; gap:7px; position:relative; overflow:hidden;
+}
+.flatbox::before{content:''; position:absolute; left:39%; right:39%; top:0; bottom:0; background:var(--c2); opacity:.9}
+.flatbox>*{position:relative; z-index:1}
+.flatbox img{width:64%; aspect-ratio:1; object-fit:cover; border-radius:50%; border:2.5px solid rgba(74,53,36,.2)}
+.flatbox .fname{font-family:'Lilita One'; color:#FFF6EA; text-shadow:1.4px 1.4px 0 rgba(74,53,36,.5); font-size:.95rem; text-align:center}
+.st-items{display:flex; flex-direction:column; gap:10px; margin-bottom:18px}
+.st-item{display:flex; align-items:center; gap:13px; background:#FBF3E2; border:2px solid #E0CDAA; border-radius:13px; padding:9px 13px}
+.st-item .win{width:52px; flex-shrink:0; border-width:2px}
+.st-item .nm{font-weight:800; flex:1}
+.st-item .rr{font-size:.64rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:#fff; background:var(--rc); padding:2.5px 10px; border-radius:12px}
+.st-item .del{width:30px; height:30px; border-radius:9px; border:2px solid var(--ink); background:var(--cream); display:grid; place-items:center}
+.it-form{background:#FBF3E2; border:2px dashed #D8C29A; border-radius:15px; padding:16px}
+.it-form h4{font-weight:800; font-size:.82rem; letter-spacing:1.4px; text-transform:uppercase; color:#8a6c50; margin-bottom:12px}
+.it-row{display:flex; gap:11px; align-items:center; flex-wrap:wrap}
+.it-row .field{margin-bottom:10px; flex:1; min-width:130px}
+.it-row select{
+  border:2px solid var(--ink); border-radius:10px; padding:9px 11px; font-family:inherit; font-weight:700;
+  background:#fff; color:var(--ink); width:100%;
+}
+.radio-row{display:flex; gap:14px; font-weight:800; font-size:.86rem; margin-bottom:10px}
+.radio-row label{display:flex; gap:6px; align-items:center; cursor:pointer}
+.bow-row{display:flex; align-items:center; gap:7px; font-weight:800; font-size:.86rem; cursor:pointer}
+.it-preview{display:grid; place-items:center}
+.it-preview .win{width:78px}
+
+/* ---------- Modal / Toast ---------- */
+.modal{position:fixed; inset:0; z-index:65; display:grid; place-items:center; background:rgba(43,31,22,.5); padding:18px}
+.modal-box{background:var(--cream); border:2.5px solid var(--ink); border-radius:18px; box-shadow:7px 7px 0 rgba(30,20,12,.5); padding:24px; max-width:380px; width:100%; text-align:center}
+.modal-box h4{font-family:'Lilita One'; font-size:1.3rem; margin-bottom:8px}
+.modal-box p{font-weight:600; color:#6d523c; margin-bottom:18px; line-height:1.5}
+.modal-box .row{display:flex; gap:11px; justify-content:center}
+#toast{
+  position:fixed; bottom:22px; left:50%; transform:translate(-50%,80px); z-index:70;
+  background:var(--ink); color:var(--cream); font-weight:800; padding:12px 22px; border-radius:14px;
+  border:2px solid var(--cream); box-shadow:0 8px 22px rgba(30,20,12,.4); transition:transform .3s cubic-bezier(.2,1.2,.4,1);
+  max-width:88vw; text-align:center;
+}
+#toast.show{transform:translate(-50%,0)}
+#fx{position:fixed; inset:0; z-index:60; pointer-events:none}
+
+/* ---------- Responsif ---------- */
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr; text-align:center}
+  .hero p{margin-inline:auto}
+  .hero-cta,.hero-stat{justify-content:center}
+  .play-grid,.studio-grid{grid-template-columns:1fr}
+  .stage{height:420px}
+  .scene{--s:212px!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="mark"></div>
+    <h1>Sylvania Unbox Club<small>game buka blindbox</small></h1>
+  </div>
+  <nav>
+    <button class="navbtn on" data-nav="home"><i class="lu" data-lucide="store"></i>Rak Seri</button>
+    <button class="navbtn" data-nav="album"><i class="lu" data-lucide="book-open"></i>Albumku</button>
+    <button class="navbtn" data-nav="studio"><i class="lu" data-lucide="hammer"></i>Bengkel Seri</button>
+  </nav>
+  <button id="btnSound" title="Suara"><i class="lu" data-lucide="volume-2"></i></button>
+</header>
+
+<main>
+  <!-- ============ BERANDA ============ -->
+  <section id="viewHome">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Klub kolektor hutan kecil</div>
+        <h2>Kocok, buka, lalu temukan <em>penghuni kecil<svg viewBox="0 0 120 10" preserveAspectRatio="none"><path d="M2 7 Q12 2 22 6 T42 5 T62 6 T82 4 T102 6 T118 5" fill="none" stroke="#C4553B" stroke-width="3.4" stroke-linecap="round"/></svg></em> di dalamnya!</h2>
+        <p>Pilih sebuah seri blindbox, kocok kotaknya lima kali, dan sambut figur kejutannya. Kumpulkan semuanya di album — atau rancang seri blindbox-mu sendiri dengan foto kotak dan foto isi buatanmu sendiri.</p>
+        <div class="hero-cta">
+          <button class="btn" id="ctaPlay"><i class="lu" data-lucide="box"></i>Mulai Buka Kotak</button>
+          <button class="btn ghost" id="ctaStudio"><i class="lu" data-lucide="hammer"></i>Buat Seri Sendiri</button>
+        </div>
+        <div class="hero-stat" id="heroStat"></div>
+      </div>
+      <div class="hero-stage">
+        <div class="hero-box" id="heroBox"></div>
+      </div>
+    </div>
+
+    <div class="shelf-block">
+      <div class="shelf-head"><h3>Rak Seri Resmi</h3><span>ketuk kotaknya untuk mulai membuka</span></div>
+      <div id="shelfBuilt"></div>
+    </div>
+    <div class="shelf-block">
+      <div class="shelf-head">
+        <h3>Rak Buatanmu</h3><span>seri hasil bengkel seri</span>
+        <button class="btn small smile" id="btnNewCustom"><i class="lu" data-lucide="plus"></i>Seri baru</button>
+      </div>
+      <div id="shelfCustom"></div>
+    </div>
+  </section>
+
+  <!-- ============ MAIN ============ -->
+  <section id="viewPlay" class="hidden">
+    <button class="btn small ghost" id="btnBackShelf" style="margin-bottom:16px"><i class="lu" data-lucide="chevron-left"></i>Kembali ke Rak</button>
+    <div class="play-grid">
+      <div class="panel play-side">
+        <h2 id="playTitle"></h2>
+        <p class="desc" id="playDesc"></p>
+        <div class="odds" id="playOdds"></div>
+        <div class="lineup-t">Isi seri ini</div>
+        <div class="lineup" id="lineup"></div>
+        <div class="hist-t">Hasil sesi ini</div>
+        <div class="history" id="history"></div>
+      </div>
+      <div>
+        <div class="stage" id="stage">
+          <div class="stage-label">Seret untuk memutar &bull; ketuk untuk mengocok</div>
+          <div class="grab"><i class="lu" data-lucide="hand"></i></div>
+          <div id="stageMount"></div>
+        </div>
+        <div class="stage-toolbar">
+          <div class="meterwrap">
+            <span class="lbl">Kekuatan kocok</span>
+            <div class="meter" id="meter"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <span class="hint">Kotak terbuka setelah 5&times; kocokan</span>
+          <button class="btn" id="btnShake"><i class="lu" data-lucide="sparkles"></i>Kocok Kotak</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ALBUM ============ -->
+  <section id="viewAlbum" class="hidden">
+    <div class="album-top">
+      <h2>Album Koleksiku</h2>
+      <span class="progress" id="albumProgress"></span>
+    </div>
+    <div class="chips" id="albumChips"></div>
+    <div class="agrid" id="albumGrid"></div>
+  </section>
+
+  <!-- ============ STUDIO ============ -->
+  <section id="viewStudio" class="hidden">
+    <h2 style="font-family:'Lilita One'; font-size:1.9rem">Bengkel Seri</h2>
+    <p class="studio-sub" style="max-width:62ch">Rancang blindbox versimu: beri nama serinya, pasang foto untuk kotaknya, lalu isi dengan para figur — foto hasil jepitanmu, atau wajah hewan yang dirakit di sini. Semuanya muncul di rak &amp; bisa langsung dibuka.</p>
+    <div class="studio-grid">
+      <div class="panel">
+        <div class="field">
+          <label>Nama seri</label>
+          <input type="text" id="stName" maxlength="30" placeholder="cth. Piknik Keluarga Tapir">
+        </div>
+        <div class="field">
+          <label>Warna kotak</label>
+          <div class="swatches" id="stSwatches"></div>
+        </div>
+        <div class="field">
+          <label>Foto untuk kotak (opsional)</label>
+          <div class="upl">
+            <button class="btn small ghost" id="stBoxBtn"><i class="lu" data-lucide="image"></i>Pilih Foto</button>
+            <span class="upl-hint" id="stBoxHint">Belum ada foto — kotak memakai warna &amp; figur pertama.</span>
+          </div>
+          <input type="file" id="stBoxFile" accept="image/*" class="hidden">
+        </div>
+        <div class="field" style="text-align:center">
+          <label>Pratinjau kotakmu</label>
+          <div id="stPreview"></div>
+        </div>
+        <button class="btn smile" id="btnSaveSeries" style="width:100%; justify-content:center"><i class="lu" data-lucide="check"></i>Simpan ke Rak</button>
+      </div>
+      <div class="panel">
+        <div class="lineup-t" style="margin-bottom:12px">Isi seri (<span id="stCount">0</span> figur &mdash; minimal 3)</div>
+        <div class="st-items" id="stItems"></div>
+        <div class="it-form">
+          <h4>Tambah figur</h4>
+          <div class="it-row">
+            <div class="field" style="flex:2"><label>Nama figur</label><input type="text" id="itName" maxlength="26" placeholder="cth. Tante Karamel"></div>
+            <div class="field"><label>Tingkatannya</label>
+              <select id="itRarity">
+                <option value="common">Populer</option>
+                <option value="rare">Jarang</option>
+                <option value="epic">Epik</option>
+                <option value="secret">Rahasia</option>
+              </select>
+            </div>
+          </div>
+          <div class="radio-row">
+            <label><input type="radio" name="itSrc" value="animal" checked> Gambar hewan</label>
+            <label><input type="radio" name="itSrc" value="photo"> Foto sendiri</label>
+          </div>
+          <div id="itAnimal">
+            <div class="it-row">
+              <div class="field"><label>Jenis</label>
+                <select id="itSpecies">
+                  <option value="rabbit">Kelinci</option>
+                  <option value="cat">Kucing</option>
+                  <option value="bear">Beruang</option>
+                  <option value="dog">Anjing</option>
+                  <option value="hamster">Hamster</option>
+                </select>
+              </div>
+              <div class="field" style="flex:2"><label>Warna bulu</label><div class="swatches" id="itFur"></div></div>
+            </div>
+            <label class="bow-row"><input type="checkbox" id="itBow"> Pakai pita sesuai warna kotak</label>
+          </div>
+          <div id="itPhoto" class="hidden">
+            <div class="upl">
+              <button class="btn small ghost" id="itPhotoBtn"><i class="lu" data-lucide="camera"></i>Pilih Foto Figur</button>
+              <span class="upl-hint" id="itPhotoHint">Foto akan tampil dalam bingkai bulat.</span>
+            </div>
+            <input type="file" id="itPhotoFile" accept="image/*" class="hidden">
+          </div>
+          <div class="it-row" style="margin-top:12px">
+            <div class="it-preview"><div class="win" id="itPreview"></div></div>
+            <button class="btn" id="btnAddItem" style="margin-left:auto"><i class="lu" data-lucide="plus"></i>Masukkan ke Seri</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Overlay reveal -->
+<div id="reveal" class="overlay hidden">
+  <div class="rv-burst" id="rvBurst"></div>
+  <div class="rv-card" id="rvCard"></div>
+</div>
+
+<div id="modal" class="modal hidden"><div class="modal-box" id="modalBox"></div></div>
+<div id="toast"></div>
+<canvas id="fx"></canvas>
+
+<script>
+/* ============================================================
+   UTIL
+============================================================ */
+const $  = (s,el=document)=>el.querySelector(s);
+const $$ = (s,el=document)=>[...el.querySelectorAll(s)];
+const esc = s=>String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const icons = ()=>window.lucide && lucide.createIcons();
+
+function shade(hex, amt){ // terangkan (amt>0) / gelapkan (amt<0)
+  const n=parseInt(hex.slice(1),16); let r=n>>16&255,g=n>>8&255,b=n&255;
+  const f=v=> amt<0 ? Math.round(v*(1+amt/100)) : Math.round(v+(255-v)*amt/100);
+  return '#'+[f(r),f(g),f(b)].map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+let toastT=null;
+function toast(msg){
+  const t=$('#toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2600);
+}
+function confirmModal(title,msg,onYes){
+  $('#modalBox').innerHTML=`<h4>${esc(title)}</h4><p>${esc(msg)}</p>
+    <div class="row"><button class="btn small" id="mYes"><i class="lu" data-lucide="trash-2"></i>Ya, hapus</button>
+    <button class="btn small ghost" id="mNo">Batal</button></div>`;
+  $('#modal').classList.remove('hidden'); icons();
+  $('#mYes').onclick=()=>{ $('#modal').classList.add('hidden'); onYes(); };
+  $('#mNo').onclick=()=>$('#modal').classList.add('hidden');
+}
+function readImage(file,max){
+  return new Promise((res,rej)=>{
+    const img=new Image(), url=URL.createObjectURL(file);
+    img.onload=()=>{
+      const s=Math.min(1,max/Math.max(img.width,img.height));
+      const c=document.createElement('canvas');
+      c.width=Math.round(img.width*s); c.height=Math.round(img.height*s);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      URL.revokeObjectURL(url); res(c.toDataURL('image/jpeg',.8));
+    };
+    img.onerror=rej; img.src=url;
+  });
+}
+
+/* ============================================================
+   AUDIO kecil (WebAudio, tanpa berkas eksternal)
+============================================================ */
+let actx=null;
+function ac(){ if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)(); if(actx.state==='suspended')actx.resume(); return actx; }
+function beep({f=440,f2=0,t=.12,type='sine',v=.14,delay=0}={}){
+  if(DB.muted) return;
+  try{
+    const a=ac(),o=a.createOscillator(),g=a.createGain(),t0=a.currentTime+delay;
+    o.type=type; o.frequency.setValueAtTime(f,t0);
+    if(f2) o.frequency.exponentialRampToValueAtTime(f2,t0+t);
+    g.gain.setValueAtTime(v,t0); g.gain.exponentialRampToValueAtTime(.001,t0+t);
+    o.connect(g).connect(a.destination); o.start(t0); o.stop(t0+t+.03);
+  }catch(e){}
+}
+const popN   = n=>beep({f:170+n*55,f2:80,t:.12,type:'triangle',v:.22});
+const whoosh = ()=>beep({f:140,f2:660,t:.42,type:'sawtooth',v:.05});
+function chime(r){
+  const seq={common:[523,659],rare:[523,659,784],epic:[523,659,784,1047],secret:[587,740,880,1175,1480]}[r];
+  seq.forEach((f,i)=>beep({f,t:.34,type:'sine',v:.13,delay:i*.09}));
+  if(r==='epic'||r==='secret') beep({f:2093,t:.5,type:'sine',v:.05,delay:.45});
+}
+
+/* ============================================================
+   DATA
+============================================================ */
+const RARITY={
+  common:{label:'Populer', color:'#7E9A6B', w:56},
+  rare:  {label:'Jarang',  color:'#D9A13B', w:27},
+  epic:  {label:'Epik',    color:'#C4553B', w:13},
+  secret:{label:'Rahasia', color:'#3A332C', w:4},
+};
+const FURS=['#E8C79A','#F3E7D6','#B98A5E','#8A5A3B','#D99A5B','#C9C2B8','#3A332C','#EFDCBE'];
+const THEMES=['#C4553B','#D9A13B','#7E9A6B','#D9917E','#E2A5B3','#46554C'];
+const SPECIES={rabbit:'Kelinci',cat:'Kucing',bear:'Beruang',dog:'Anjing',hamster:'Hamster'};
+
+const BUILT_IN=[
+ {id:'s1',name:'Keluarga Kayu Manis',c1:'#C4553B',c2:'#8F3D2A',
+  desc:'Keluarga kelinci pohon yang tinggal di rumah pohon kayu manis. Hangat, ramai, dan selalu lapar wortel.',
+  items:[
+   {name:'Tio Wortel',rarity:'common',species:'rabbit',fur:'#E8C79A',cloth:'#7E9A6B'},
+   {name:'Lila Karamel',rarity:'common',species:'rabbit',fur:'#F3E7D6',cloth:'#D98E86',bow:'#C4553B'},
+   {name:'Om Bartol',rarity:'rare',species:'rabbit',fur:'#B98A5E',cloth:'#D9A13B'},
+   {name:'Bayi Momo',rarity:'rare',species:'rabbit',fur:'#EFDCBE',cloth:'#A8C3A0',bow:'#D98E86'},
+   {name:'Nenek Rutje',rarity:'epic',species:'rabbit',fur:'#EDE0CB',cloth:'#8F3D2A'},
+   {name:'Kembar Rahasia',rarity:'secret',species:'rabbit',fur:'#8A5A3B',cloth:'#4A3524',bow:'#D9B45B'},
+ ]},
+ {id:'s2',name:'Kucing Kampoeng',c1:'#D9A13B',c2:'#A97522',
+  desc:'Para kucing kampung yang sibuk memilih-milih tempat tidur paling nyaman di seluruh Sylvania.',
+  items:[
+   {name:'Mimi Susu',rarity:'common',species:'cat',fur:'#F3E7D6',cloth:'#C4553B'},
+   {name:'Jago Oren',rarity:'common',species:'cat',fur:'#D99A5B',cloth:'#7E9A6B'},
+   {name:'Mbah Sireh',rarity:'rare',species:'cat',fur:'#C9C2B8',cloth:'#6B4A32'},
+   {name:'Kinanti',rarity:'rare',species:'cat',fur:'#E8C79A',cloth:'#D98E86',bow:'#C4553B'},
+   {name:'Hitam Manis',rarity:'epic',species:'cat',fur:'#5B4636',cloth:'#D9A13B'},
+   {name:'Lord Kumbang',rarity:'secret',species:'cat',fur:'#3A332C',cloth:'#D9B45B',bow:'#D9B45B'},
+ ]},
+ {id:'s3',name:'Beruang Hutan Ceria',c1:'#7E9A6B',c2:'#5C7A4C',
+  desc:'Keluarga beruang penjaga ladang madu. Jangan kaget jika peserta pesta teh mereka selalu lebih banyak dari undangan.',
+  items:[
+   {name:'Bobi Madu',rarity:'common',species:'bear',fur:'#B98A5E',cloth:'#D9A13B'},
+   {name:'Nana Berry',rarity:'common',species:'bear',fur:'#E8C79A',cloth:'#C4553B',bow:'#C4553B'},
+   {name:'Pak Jagoan',rarity:'rare',species:'bear',fur:'#8A5A3B',cloth:'#5C7A4C'},
+   {name:'Ipah Pelangi',rarity:'rare',species:'bear',fur:'#D9A96B',cloth:'#D98E86',bow:'#7E9A6B'},
+   {name:'Kapten Kayu',rarity:'epic',species:'bear',fur:'#A97545',cloth:'#4A3524'},
+   {name:'Beruang Bulan',rarity:'secret',species:'bear',fur:'#CFC8BD',cloth:'#D9B45B'},
+ ]},
+ {id:'s4',name:'Dachshund Piknik',c1:'#D9917E',c2:'#B06A58',
+  desc:'Keluarga anjing dachshund berbadan panjang dengan keranjang piknik yang sama panjangnya dengan badannya.',
+  items:[
+   {name:'Bruno Sosis',rarity:'common',species:'dog',fur:'#B98A5E',cloth:'#7E9A6B'},
+   {name:'Pretzel',rarity:'common',species:'dog',fur:'#D99A5B',cloth:'#C4553B',bow:'#F3E7D6'},
+   {name:'Aldo Panjang',rarity:'rare',species:'dog',fur:'#8A5A3B',cloth:'#D9A13B'},
+   {name:'Cokelat Chips',rarity:'rare',species:'dog',fur:'#6B4A32',cloth:'#D98E86'},
+   {name:'Baron Mustard',rarity:'epic',species:'dog',fur:'#B98A5E',cloth:'#4A3524'},
+   {name:'Anjing Awan',rarity:'secret',species:'dog',fur:'#F3E7D6',cloth:'#D9B45B'},
+ ]},
+ {id:'s5',name:'Pesta Bayi Hutan',c1:'#E2A5B3',c2:'#B87487',
+  desc:'Bayi-bayi hutan mengadakan pesta teh pertama mereka. Perban lepas, kue melayang, semuanya sah-sah saja.',
+  items:[
+   {name:'Bayi Pipi',rarity:'common',species:'rabbit',fur:'#EFDCBE',cloth:'#E2A5B3',bow:'#F3E7D6'},
+   {name:'Bayi Toma',rarity:'common',species:'cat',fur:'#E8C79A',cloth:'#7E9A6B'},
+   {name:'Bayi Popo',rarity:'rare',species:'bear',fur:'#B98A5E',cloth:'#D9A13B'},
+   {name:'Bayi Dodo',rarity:'rare',species:'dog',fur:'#D99A5B',cloth:'#C4553B',bow:'#F3E7D6'},
+   {name:'Bayi Gizi',rarity:'epic',species:'hamster',fur:'#E8C79A',cloth:'#B87487'},
+   {name:'Bayi Kembar Ajaib',rarity:'secret',species:'rabbit',fur:'#F3E7D6',cloth:'#D9B45B',bow:'#D9B45B'},
+ ]},
+ {id:'s6',name:'Serambi Bunga Bulan',c1:'#46554C',c2:'#2F3B34',
+  desc:'Seri terbatas: para penjaga taman yang hanya keluar saat purnama, membawa lentera dan kabar dari jauh.',
+  items:[
+   {name:'Laila Senja',rarity:'common',species:'cat',fur:'#E8C79A',cloth:'#46554C'},
+   {name:'Arnab Rembulan',rarity:'common',species:'rabbit',fur:'#F3E7D6',cloth:'#C4553B'},
+   {name:'Kunang Kecil',rarity:'rare',species:'hamster',fur:'#D9A96B',cloth:'#D9B45B',bow:'#D9B45B'},
+   {name:'Pujangga Bintang',rarity:'rare',species:'cat',fur:'#3A332C',cloth:'#D9B45B'},
+   {name:'Penjaga Lestari',rarity:'epic',species:'bear',fur:'#8A5A3B',cloth:'#46554C'},
+   {name:'Sylvanian Bulan',rarity:'secret',species:'rabbit',fur:'#FFF8EA',cloth:'#D9B45B',bow:'#D9B45B'},
+ ]},
+];
+
+/* ============================================================
+   PENYIMPANAN
+============================================================ */
+const KEY='sylvaniaUnboxClubV1';
+let DB;
+try{ DB=JSON.parse(localStorage.getItem(KEY))||null; }catch(e){ DB=null; }
+DB = Object.assign({col:{},custom:[],muted:false,pity:0,last:null}, DB||{});
+function save(){
+  try{ localStorage.setItem(KEY,JSON.stringify(DB)); }
+  catch(e){ toast('Penyimpanan browser penuh — coba kurangi jumlah foto.'); }
+}
+// lengkapi id item bawaan (stabil)
+BUILT_IN.forEach(s=>s.items.forEach((it,i)=>it.id=`${s.id}-${i}`));
+function allSeries(){ return BUILT_IN.concat(DB.custom); }
+function findSeries(id){ return allSeries().find(s=>s.id===id); }
+function findItem(id){
+  for(const s of allSeries()){ const it=s.items.find(x=>x.id===id); if(it) return {series:s,item:it}; }
+  return null;
+}
+
+/* ============================================================
+   GENERATOR WAJah HEWAN (SVG prosedural)
+============================================================ */
+const bowSVG=(x,y,c,r=0)=>`<g transform="translate(${x} ${y}) rotate(${r})">
+  <path d="M0 0 L-20 -12 L-20 12 Z" fill="${c}"/><path d="M0 0 L20 -12 L20 12 Z" fill="${c}"/>
+  <circle r="6.5" fill="${shade(c,-18)}"/></g>`;
+
+function faceSVG(it){
+  const fur=it.fur, cloth=it.cloth, S=it.species;
+  let ears='';
+  if(S==='rabbit') ears=`<g>
+    <ellipse cx="70" cy="46" rx="15" ry="40" fill="${fur}" transform="rotate(-10 70 46)"/>
+    <ellipse cx="130" cy="46" rx="15" ry="40" fill="${fur}" transform="rotate(10 130 46)"/>
+    <ellipse cx="70" cy="50" rx="7" ry="26" fill="#F0B9AE" transform="rotate(-10 70 50)"/>
+    <ellipse cx="130" cy="50" rx="7" ry="26" fill="#F0B9AE" transform="rotate(10 130 50)"/></g>`;
+  if(S==='cat') ears=`<g>
+    <path d="M56 78 L60 24 L100 56 Z" fill="${fur}"/><path d="M144 78 L140 24 L100 56 Z" fill="${fur}"/>
+    <path d="M64 66 L66 38 L87 53 Z" fill="#F0B9AE"/><path d="M136 66 L134 38 L113 53 Z" fill="#F0B9AE"/></g>`;
+  if(S==='bear') ears=`<g>
+    <circle cx="60" cy="56" r="21" fill="${fur}"/><circle cx="140" cy="56" r="21" fill="${fur}"/>
+    <circle cx="60" cy="56" r="10" fill="#F0B9AE"/><circle cx="140" cy="56" r="10" fill="#F0B9AE"/></g>`;
+  if(S==='dog') ears=`<g>
+    <ellipse cx="54" cy="88" rx="19" ry="42" fill="${shade(fur,-14)}" transform="rotate(14 54 88)"/>
+    <ellipse cx="146" cy="88" rx="19" ry="42" fill="${shade(fur,-14)}" transform="rotate(-14 146 88)"/></g>`;
+  if(S==='hamster') ears=`<g>
+    <circle cx="62" cy="62" r="15" fill="${fur}"/><circle cx="138" cy="62" r="15" fill="${fur}"/>
+    <circle cx="62" cy="62" r="8" fill="#F0B9AE"/><circle cx="138" cy="62" r="8" fill="#F0B9AE"/></g>`;
+
+  const muzzle=(S==='dog'||S==='bear'||S==='hamster')
+    ?`<ellipse cx="100" cy="128" rx="27" ry="20" fill="${shade(fur,24)}"/>`:'';
+  const nose=(S==='cat'||S==='rabbit')
+    ?`<path d="M92 116 Q100 111 108 116 Q104 127 100 127 Q96 127 92 116 Z" fill="#C96A63"/>`
+    :`<ellipse cx="100" cy="121" rx="8" ry="6" fill="#5B4636"/>`;
+  const mouth=(S==='cat')
+    ?`<path d="M100 128 Q100 135 92 136 M100 128 Q100 135 108 136" stroke="#5B4636" stroke-width="2.4" fill="none" stroke-linecap="round"/>`
+    :`<path d="M92 133 Q100 141 108 133" stroke="#5B4636" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+  const whisk=S==='cat'
+    ?`<g stroke="${shade(fur,-35)}" stroke-width="1.8" stroke-linecap="round" opacity=".65">
+      <path d="M40 112 L63 116"/><path d="M42 127 L63 124"/><path d="M160 112 L137 116"/><path d="M158 127 L137 124"/></g>`:'';
+  const blushR=S==='hamster'?12:10;
+  const bow=it.bow
+    ?(S==='rabbit'?bowSVG(136,22,it.bow,14):bowSVG(60,28,it.bow,-16)):'';
+
+  return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(it.name)}">
+    ${ears}
+    <path d="M60 200 Q62 156 100 152 Q138 156 140 200 Z" fill="${cloth}"/>
+    <circle cx="100" cy="177" r="4" fill="#FFF8EA"/>
+    <ellipse cx="100" cy="110" rx="56" ry="50" fill="${fur}"/>
+    ${muzzle}
+    <circle cx="79" cy="104" r="6.2" fill="#3A2B22"/><circle cx="121" cy="104" r="6.2" fill="#3A2B22"/>
+    <circle cx="81" cy="102" r="2.1" fill="#FFF"/><circle cx="123" cy="102" r="2.1" fill="#FFF"/>
+    ${nose}${mouth}
+    <ellipse cx="66" cy="124" rx="${blushR}" ry="6.5" fill="#F2A69C" opacity=".55"/>
+    <ellipse cx="134" cy="124" rx="${blushR}" ry="6.5" fill="#F2A69C" opacity=".55"/>
+    ${whisk}${bow}
+  </svg>`;
+}
+function winMedia(it){ return it.photo ? `<img src="${it.photo}" alt="${esc(it.name)}">` : faceSVG(it); }
+
+/* ============================================================
+   PEMBANGUN KOTAK
+============================================================ */
+function boxFront(series){
+  if(series.boxImg){
+    return `<div class="bff-photo" style="background-image:url('${series.boxImg}')"></div>
+      <div class="bff onphoto"><span class="bff-tag">SERI BLIND BOX</span>
+      <span class="bff-name">${esc(series.name)}</span></div>`;
+  }
+  return `<div class="bff">
+    <span class="bff-tag">SERI BLIND BOX</span>
+    <div class="win" style="width:52%">${winMedia(series.items[0])}</div>
+    <span class="bff-name">${esc(series.name)}</span>
+    <span class="bff-sub">1 figur kejutan di dalam</span></div>`;
+}
+function box3DHTML(series,sideClass=''){
+  const hz='var(--hs)';
+  return `<div class="scene ${sideClass}" style="--c1:${series.c1};--c2:${series.c2}">
+    <div class="shaker">
+      <div class="box3d">
+        <div class="bin">
+          <i style="transform:translateZ(calc(${hz} - 1.5px))"></i>
+          <i style="transform:rotateY(180deg) translateZ(calc(${hz} - 1.5px))"></i>
+          <i style="transform:rotateY(90deg) translateZ(calc(${hz} - 1.5px))"></i>
+          <i style="transform:rotateY(-90deg) translateZ(calc(${hz} - 1.5px))"></i>
+          <i class="bib" style="transform:translateY(${hz}) rotateX(90deg)"></i>
+        </div>
+        <div class="bface bf-front">${boxFront(series)}</div>
+        <div class="bface bf-back bf-side"></div>
+        <div class="bface bf-left bf-side"></div>
+        <div class="bface bf-right bf-side"></div>
+        <div class="bface bf-top"><span class="knot"></span></div>
+        <div class="bface bf-bottom"></div>
+      </div>
+    </div>
+    <div class="ground-shadow"></div>
+  </div>`;
+}
+function miniHTML(series,tilt=0){
+  return `<button class="mini" data-sid="${series.id}" style="--c1:${series.c1};--c2:${series.c2};--tilt:${tilt}deg">
+    ${series.custom?`<span class="badge-custom">Buatanmu</span>
+      <span class="mini-del" data-del="${series.id}" title="Hapus seri"><i class="lu" data-lucide="trash-2"></i></span>`:''}
+    <span class="m-tag">BLIND BOX</span>
+    <span class="win m-win">${series.boxImg?`<img src="${series.boxImg}" alt="">`:winMedia(series.items[0])}</span>
+    <span class="m-name">${esc(series.name)}</span>
+    <span class="m-sub">${series.items.length} isi misterius</span>
+  </button>`;
+}
+function renderRows(container,list){
+  container.innerHTML='';
+  if(!list.length) return false;
+  for(let i=0;i<list.length;i+=3){
+    const row=document.createElement('div'); row.className='shelf-row';
+    row.innerHTML=list.slice(i,i+3).map((s,j)=>miniHTML(s,((j%3)-1)*2.2)).join('');
+    container.appendChild(row);
+  }
+  return true;
+}
+function renderShelf(){
+  renderRows($('#shelfBuilt'),BUILT_IN);
+  const ok=renderRows($('#shelfCustom'),DB.custom);
+  if(!ok){
+    $('#shelfCustom').innerHTML=`<div class="shelf-empty">Rak buatanmu masih kosong.<br>
+      <button class="btn small smile" onclick="go('studio')"><i class="lu" data-lucide="hammer"></i>Rakit seri pertamamu</button></div>`;
+  }
+  icons();
+}
+
+/* ============================================================
+   NAVIGASI
+============================================================ */
+function go(view){
+  ['Home','Play','Album','Studio'].forEach(v=>$('#view'+v).classList.toggle('hidden', v.toLowerCase()!==view));
+  $$('.navbtn').forEach(b=>b.classList.toggle('on',b.dataset.nav===view));
+  if(view==='album') renderAlbum();
+  if(view==='studio') renderStudioPreview();
+  if(view==='home') renderShelf();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+ $$('.navbtn').forEach(b=>b.onclick=()=>go(b.dataset.nav));
+ $('#btnBackShelf').onclick=()=>go('home');
+ $('#ctaStudio').onclick=()=>go('studio');
+ $('#btnNewCustom').onclick=()=>go('studio');
+ $('#ctaPlay').onclick=()=>openPlay(DB.last&&findSeries(DB.last)?DB.last:BUILT_IN[0].id);
+
+ $('#btnSound').onclick=()=>{
+  DB.muted=!DB.muted; save();
+  $('#btnSound').innerHTML=`<i class="lu" data-lucide="${DB.muted?'volume-x':'volume-2'}"></i>`; icons();
+  if(!DB.muted) beep({f:660,t:.1,v:.1});
+};
+
+/* ============================================================
+   HERO showcase
+============================================================ */
+let heroIdx=0, heroTimer=null;
+function heroTick(){
+  const el=$('#heroBox .scene');
+  const swap=()=>{
+    heroIdx=(heroIdx+1)%BUILT_IN.length;
+    $('#heroBox').innerHTML=box3DHTML(BUILT_IN[heroIdx]);
+    $('#heroBox .scene').style.opacity=0;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>$('#heroBox .scene').style.opacity=1));
+  };
+  if(el){ el.style.opacity=0; setTimeout(swap,260); }
+}
+function startHero(){
+  $('#heroBox').innerHTML=box3DHTML(BUILT_IN[0]);
+  $('#heroBox .scene').style.opacity=0;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>$('#heroBox .scene').style.opacity=1));
+  clearInterval(heroTimer); heroTimer=setInterval(heroTick,3400);
+  $('#heroBox').onclick=()=>openPlay(BUILT_IN[heroIdx].id);
+  updateStat();
+}
+function updateStat(){
+  const total=allSeries().reduce((a,s)=>a+s.items.length,0);
+  const mine=Object.keys(DB.col).length;
+  $('#heroStat').innerHTML=`<i class="lu" data-lucide="heart"></i>
+    ${BUILT_IN.length} seri resmi &bull; ${total} figur &bull; koleksimu: <b>${mine} figur</b>`;
+  icons();
+}
+
+/* ============================================================
+   BERMAIN: kocok & buka
+============================================================ */
+let playSeries=null, playState='ready', shakeN=0, rot={x:-9,y:26};
+function openPlay(sid){
+  const s=findSeries(sid); if(!s) return;
+  if(s.items.length<3){ toast('Seri ini butuh minimal 3 isi — lengkapi di Bengkel Seri.'); go('studio'); return; }
+  playSeries=s; DB.last=sid; save();
+  $('#playTitle').textContent=s.name;
+  $('#playDesc').textContent=s.desc;
+  $('#playOdds').innerHTML=Object.keys(RARITY)
+    .filter(r=>s.items.some(i=>i.rarity===r))
+    .map(r=>`<span style="color:${RARITY[r].color};border-color:${RARITY[r].color}">${RARITY[r].label} ${RARITY[r].w}%</span>`).join('');
+  $('#history').innerHTML='';
+  buildPlayBox(); renderLineup(s); go('play');
+}
+function renderLineup(s){
+  $('#lineup').innerHTML=s.items.map(it=>{
+    const got=DB.col[it.id];
+    return `<div class="lu-it ${got?'got':''}">
+      <div class="win">${got?winMedia(it):'<span style="font-size:0"></span>'}</div>
+      ${got?'':`<span class="qm">?</span>`}
+    </div>`;
+  }).join('');
+}
+function buildPlayBox(){
+  playState='ready'; shakeN=0; rot={x:-9,y:26};
+  $('#stageMount').innerHTML=box3DHTML(playSeries);
+  updateMeter();
+  const scene=$('#stageMount .scene'), box=$('#stageMount .box3d');
+  applyRot(box);
+  let drag=false,px=0,py=0;
+  scene.addEventListener('pointerdown',e=>{
+    if(playState!=='ready') return;
+    drag=true; px=e.clientX; py=e.clientY; scene.setPointerCapture(e.pointerId);
+  });
+  scene.addEventListener('pointermove',e=>{
+    if(!drag) return;
+    rot.y+=(e.clientX-px)*.45; rot.x=Math.max(-55,Math.min(28,rot.x-(e.clientY-py)*.3));
+    px=e.clientX; py=e.clientY; box.style.transform=`rotateX(${rot.x}deg) rotateY(${rot.y}deg)`;
+  });
+  scene.addEventListener('pointerup',()=>{ drag=false; if(playState==='ready') tapBox(); });
+  scene.addEventListener('pointercancel',()=>drag=false);
+}
+function applyRot(box){ box.style.transform=`rotateX(${rot.x}deg) rotateY(${rot.y}deg)`; }
+function updateMeter(){ $$('#meter i').forEach((d,i)=>d.classList.toggle('on',i<shakeN)); }
+function tapBox(){
+  if(playState!=='ready') return;
+  shakeN++; updateMeter(); popN(shakeN);
+  const sh=$('#stageMount .shaker');
+  sh.style.setProperty('--amp',(2+shakeN*1.7)+'px');
+  sh.style.setProperty('--rot',(1+shakeN*.9)+'deg');
+  sh.classList.remove('shaking'); void sh.offsetWidth; sh.classList.add('shaking');
+  if(shakeN>=5) doOpen();
+}
+ $('#btnShake').onclick=tapBox;
+
+function doOpen(){
+  playState='opening';
+  const box=$('#stageMount .box3d');
+  box.style.transition='transform .5s ease';
+  box.style.transform='rotateX(-9deg) rotateY(0deg)';
+  whoosh();
+  setTimeout(()=>box.classList.add('open'),360);
+  setTimeout(()=>{
+    const pick=rollItem(playSeries);
+    DB.col[pick.it.id]=(DB.col[pick.it.id]||0)+1; save();
+    pushHistory(pick);
+    showReveal(playSeries,pick);
+    renderLineup(playSeries); updateStat();
+    playState='opened';
+  },1150);
+}
+function rollItem(series){
+  let pool=series.items.map((it,i)=>({it,i,w:RARITY[it.rarity].w}));
+  const hasHi=pool.some(p=>['epic','secret'].includes(p.it.rarity));
+  if(DB.pity>=9&&hasHi) pool=pool.filter(p=>['epic','secret'].includes(p.it.rarity)); // jaminan keberuntungan
+  const tot=pool.reduce((a,p)=>a+p.w,0);
+  let r=Math.random()*tot, pick=pool[0];
+  for(const p of pool){ if((r-=p.w)<=0){ pick=p; break; } }
+  DB.pity=['epic','secret'].includes(pick.it.rarity)?0:DB.pity+1;
+  save(); return pick;
+}
+function pushHistory(pick){
+  const h=$('#history');
+  const d=document.createElement('div');
+  d.className='win'; d.innerHTML=winMedia(pick.it);
+  h.prepend(d);
+  while(h.children.length>8) h.lastChild.remove();
+}
+
+/* ---------- Overlay reveal ---------- */
+(function initBurst(){
+  let rays='';
+  for(let i=0;i<14;i++) rays+=`<rect x="-3.2" y="-96" width="6.4" height="66" rx="3.2" transform="rotate(${i*(360/14)})"/>`;
+  $('#rvBurst').innerHTML=`<svg viewBox="-100 -100 200 200"><g>${rays}</g></svg>`;
+})();
+function showReveal(series,pick){
+  const r=RARITY[pick.it.rarity], count=DB.col[pick.it.id], secret=pick.it.rarity==='secret';
+  $('#rvBurst').classList.toggle('gold',secret);
+  $('#rvCard').className='rv-card'+(secret?' secret':'');
+  $('#rvCard').innerHTML=`
+    <button class="rv-close" data-act="close"><i class="lu" data-lucide="x"></i></button>
+    <div class="rv-ribbon" style="--rc:${r.color}">${r.label}</div>
+    <div class="win rv-win">${winMedia(pick.it)}</div>
+    <h3 class="rv-name">${esc(pick.it.name)}</h3>
+    <p class="rv-meta">${esc(series.name)} &bull; No.${String(pick.i+1).padStart(2,'0')} dari ${String(series.items.length).padStart(2,'0')}</p>
+    ${count>1?`<span class="rv-dup">Duplikat &bull; sudah x${count} di album</span>`:`<span class="rv-new">BARU! Tersimpan di albummu</span>`}
+    <div class="rv-btns">
+      <button class="btn" data-act="again"><i class="lu" data-lucide="rotate-ccw"></i>Buka Lagi</button>
+      <button class="btn ghost" data-act="album"><i class="lu" data-lucide="book-open"></i>Ke Album</button>
+    </div>`;
+  $('#reveal').classList.remove('hidden'); icons();
+  chime(pick.it.rarity);
+  const n=secret?130:(pick.it.rarity==='epic'?95:55);
+  confetti(innerWidth/2,innerHeight*.4,n,[playSeries.c1,playSeries.c2,'#D9B45B','#FFF8EA','#7E9A6B'],secret?26:6);
+}
+ $('#reveal').addEventListener('click',e=>{
+  const act=e.target.closest('[data-act]')?.dataset.act;
+  if(!act) return;
+  $('#reveal').classList.add('hidden');
+  if(act==='album') openPlayAlbum(playSeries.id);
+  else buildPlayBox(); // 'again' & 'close' → kotak baru siap dikocok
+});
+
+/* ============================================================
+   KONFETI (canvas)
+============================================================ */
+const fx=$('#fx'), fc=fx.getContext('2d');
+let parts=[], fxOn=false;
+function fxResize(){ fx.width=innerWidth; fx.height=innerHeight; }
+addEventListener('resize',fxResize); fxResize();
+function confetti(x,y,n,colors,stars=6){
+  for(let i=0;i<n;i++){
+    parts.push({
+      x,y, vx:(Math.random()-.5)*11, vy:-(4+Math.random()*8), g:.26,
+      rot:Math.random()*6.28, vr:(Math.random()-.5)*.34,
+      w:6+Math.random()*7, h:4+Math.random()*6,
+      c:colors[i%colors.length], life:85+Math.random()*55,
+      shape:i<stars?'star':(Math.random()<.28?'circ':'rect'),
+    });
+  }
+  if(!fxOn){ fxOn=true; fxLoop(); }
+}
+function starPath(r){
+  fc.beginPath();
+  for(let i=0;i<10;i++){
+    const a=i*Math.PI/5-Math.PI/2, rr=i%2?r*.45:r;
+    fc.lineTo(Math.cos(a)*rr,Math.sin(a)*rr);
+  }
+  fc.closePath();
+}
+function fxLoop(){
+  fc.clearRect(0,0,fx.width,fx.height);
+  parts=parts.filter(p=>p.life>0&&p.y<fx.height+40);
+  for(const p of parts){
+    p.x+=p.vx; p.y+=p.vy; p.vy+=p.g; p.vx*=.99; p.rot+=p.vr; p.life--;
+    fc.save(); fc.translate(p.x,p.y); fc.rotate(p.rot);
+    fc.globalAlpha=Math.min(1,p.life/30); fc.fillStyle=p.c;
+    if(p.shape==='rect') fc.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+    else if(p.shape==='circ'){ fc.beginPath(); fc.arc(0,0,p.w/2.4,0,6.29); fc.fill(); }
+    else { starPath(p.w*.8); fc.fill(); }
+    fc.restore();
+  }
+  if(parts.length) requestAnimationFrame(fxLoop); else fxOn=false;
+}
+
+/* ============================================================
+   ALBUM
+============================================================ */
+let albumFilter='all';
+function openPlayAlbum(sid){ albumFilter=sid; go('album'); }
+function renderAlbum(){
+  const series=allSeries();
+  $('#albumChips').innerHTML=
+    `<button class="chip ${albumFilter==='all'?'on':''}" data-f="all">Semua</button>`+
+    series.map(s=>`<button class="chip ${albumFilter===s.id?'on':''}" data-f="${s.id}">${esc(s.name)}</button>`).join('');
+  $$('#albumChips .chip').forEach(c=>c.onclick=()=>{ albumFilter=c.dataset.f; renderAlbum(); });
+  const list=series.filter(s=>albumFilter==='all'||s.id===albumFilter);
+  let owned=0,total=0;
+  const cards=[];
+  for(const s of list) for(const it of s.items){
+    total++; const c=DB.col[it.id]||0; if(c) owned++;
+    cards.push(`<div class="acard ${c?'':'locked'} ${c&&it.rarity==='secret'?'sec':''}">
+      ${c>1?`<span class="dup">x${c}</span>`:''}
+      <div class="win">${c?winMedia(it):'<span class="qmark">?</span>'}</div>
+      <span class="acard-name">${c?esc(it.name):'???'}</span>
+      <span class="acard-r" style="--rc:${RARITY[it.rarity].color}">${RARITY[it.rarity].label}</span>
+    </div>`);
+  }
+  $('#albumGrid').innerHTML=cards.join('');
+  $('#albumProgress').innerHTML=`<b>${owned}</b> / ${total} figur terkumpul`;
+}
+
+/* ============================================================
+   BENGKEL SERI
+============================================================ */
+let stTheme=THEMES[0], stBoxImg=null, stItems=[], stFur=FURS[0], itPhotoData=null;
+function initStudio(){
+  $('#stSwatches').innerHTML=THEMES.map((c,i)=>`<button class="swatch ${i===0?'on':''}" data-c="${c}" style="background:${c}"></button>`).join('');
+  $$('#stSwatches .swatch').forEach(b=>b.onclick=()=>{
+    stTheme=b.dataset.c; $$('#stSwatches .swatch').forEach(x=>x.classList.toggle('on',x===b));
+    renderStudioPreview();
+  });
+  $('#itFur').innerHTML=FURS.map((c,i)=>`<button class="swatch ${i===0?'on':''}" data-c="${c}" style="background:${c}"></button>`).join('');
+  $$('#itFur .swatch').forEach(b=>b.onclick=()=>{
+    stFur=b.dataset.c; $$('#itFur .swatch').forEach(x=>x.classList.toggle('on',x===b));
+    renderItemPreview();
+  });
+  $('#stBoxBtn').onclick=()=>$('#stBoxFile').click();
+  $('#stBoxFile').onchange=async e=>{
+    const f=e.target.files[0]; if(!f) return;
+    stBoxImg=await readImage(f,720);
+    $('#stBoxHint').textContent='Foto kotak terpasang.';
+    renderStudioPreview(); e.target.value='';
+  };
+  $('#itPhotoBtn').onclick=()=>$('#itPhotoFile').click();
+  $('#itPhotoFile').onchange=async e=>{
+    const f=e.target.files[0]; if(!f) return;
+    itPhotoData=await readImage(f,560);
+    $('#itPhotoHint').textContent='Foto siap ditempel.';
+    renderItemPreview(); e.target.value='';
+  };
+  $$('input[name=itSrc]').forEach(r=>r.onchange=()=>{
+    const photo=$('input[name=itSrc]:checked').value==='photo';
+    $('#itAnimal').classList.toggle('hidden',photo);
+    $('#itPhoto').classList.toggle('hidden',!photo);
+    renderItemPreview();
+  });
+  $('#itSpecies').onchange=renderItemPreview;
+  $('#itBow').onchange=renderItemPreview;
+  $('#btnAddItem').onclick=addItem;
+  $('#btnSaveSeries').onclick=saveSeries;
+  renderStudioPreview(); renderItemPreview();
+}
+function draftItem(){
+  const photo=$('input[name=itSrc]:checked').value==='photo';
+  return photo
+    ? {photo:itPhotoData}
+    : {species:$('#itSpecies').value, fur:stFur, cloth:shade(stTheme,-8), bow:$('#itBow').checked?stTheme:null};
+}
+function renderItemPreview(){
+  const d=draftItem();
+  $('#itPreview').innerHTML=d.photo?(d.photo?`<img src="${d.photo}">`:''):faceSVG(d);
+}
+function renderStudioPreview(){
+  const name=$('#stName').value.trim()||'Seri Buatanmu';
+  const first=stItems[0]||draftItem();
+  $('#stPreview').innerHTML=`<div class="flatbox" style="--c1:${stTheme};--c2:${shade(stTheme,-22)}">
+    ${stBoxImg?`<img src="${stBoxImg}">`:`<div class="win" style="width:64%;border-width:2.5px">${faceSVG({fur:first.fur||'#E8C79A',cloth:first.cloth||stTheme,species:first.species||'rabbit',bow:first.bow})}</div>`}
+    <span class="fname">${esc(name)}</span>
+  </div>`;
+}
+ $('#stName').addEventListener('input',renderStudioPreview);
+function renderStItems(){
+  $('#stCount').textContent=stItems.length;
+  $('#stItems').innerHTML=stItems.map((it,i)=>`
+    <div class="st-item">
+      <div class="win">${it.photo?`<img src="${it.photo}">`:faceSVG(it)}</div>
+      <span class="nm">${esc(it.name)}</span>
+      <span class="rr" style="--rc:${RARITY[it.rarity].color}">${RARITY[it.rarity].label}</span>
+      <button class="del" data-i="${i}"><i class="lu" data-lucide="x"></i></button>
+    </div>`).join('');
+  icons();
+  $$('#stItems .del').forEach(b=>b.onclick=()=>{ stItems.splice(+b.dataset.i,1); renderStItems(); renderStudioPreview(); });
+}
+function addItem(){
+  const name=$('#itName').value.trim();
+  if(!name){ toast('Beri nama figurnya dulu, ya.'); return; }
+  if($('input[name=itSrc]:checked').value==='photo'&&!itPhotoData){ toast('Pilih fotonya dulu, atau pilih "Gambar hewan".'); return; }
+  stItems.push(Object.assign({name,rarity:$('#itRarity').value},draftItem()));
+  $('#itName').value=''; itPhotoData=null; $('#itPhotoHint').textContent='Foto akan tampil dalam bingkai bulat.';
+  renderStItems(); renderStudioPreview(); renderItemPreview();
+  beep({f:740,t:.08,v:.1}); toast('Figur masuk ke seri!');
+}
+function saveSeries(){
+  const name=$('#stName').value.trim();
+  if(!name){ toast('Seri ini belum punya nama.'); return; }
+  if(stItems.length<3){ toast('Minimal 3 figur dulu supaya serinya bisa dibuka.'); return; }
+  const id='c'+Date.now();
+  stItems.forEach((it,i)=>it.id=`${id}-${i}`);
+  DB.custom.push({
+    id, name, custom:true, boxImg:stBoxImg||null,
+    c1:stTheme, c2:shade(stTheme,-22),
+    desc:'Seri hasil rakitan tanganmu dari Bengkel Seri. Isinya jauh lebih istimewa dari apa pun di rak resmi.',
+    items:stItems,
+  });
+  save();
+  stItems=[]; stBoxImg=null; $('#stName').value='';
+  $('#stBoxHint').textContent='Belum ada foto — kotak memakai warna & figur pertama.';
+  renderStItems(); renderStudioPreview(); renderShelf();
+  go('home'); toast(`Seri "${name}" sudah duduk manis di rak buatanmu!`);
+  beep({f:523,t:.12,v:.12}); beep({f:784,t:.14,v:.12,delay:.1});
+}
+// hapus seri custom dari rak
+document.addEventListener('click',e=>{
+  const del=e.target.closest('[data-del]');
+  if(del){
+    e.stopPropagation();
+    const sid=del.dataset.del, s=findSeries(sid);
+    confirmModal('Hapus seri ini?',`"${s.name}" beserta ${s.items.length} figurnya akan hilang dari rak dan album.`,()=>{
+      DB.custom=DB.custom.filter(x=>x.id!==sid);
+      Object.keys(DB.col).forEach(k=>{ if(!findItem(k)) delete DB.col[k]; });
+      save(); renderShelf(); updateStat(); toast('Seri dihapus dari rak.');
+    });
+    return;
+  }
+  const mini=e.target.closest('.mini[data-sid]');
+  if(mini) openPlay(mini.dataset.sid);
+});
+
+/* ============================================================
+   INIT
+============================================================ */
+initStudio();
+startHero();
+renderShelf();
+icons();
+ $('#btnSound').innerHTML=`<i class="lu" data-lucide="${DB.muted?'volume-x':'volume-2'}"></i>`; icons();
+</script>
+</body>
+</html>
