@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permainan Tradisional</title>
+    <style>
+        /* CSS RESET & VINTAGE STYLING */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        body {
+            background-color: #f4efe6; /* Cream/Parchment background */
+            color: #3b2f2f; /* Warm dark brown text */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: #8c3a27; /* Terracotta */
+            color: #f4efe6;
+            text-align: center;
+            padding: 20px 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            margin-top: 5px;
+            color: #e2cbb4;
+        }
+
+        /* NAVIGATION MENU */
+        nav {
+            display: flex;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .nav-btn {
+            background-color: #556b2f; /* Sage / Dark Olive Green */
+            color: #f4efe6;
+            border: 2px solid #3b2f2f;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .nav-btn:hover {
+            background-color: #405222;
+        }
+
+        .nav-btn.active {
+            background-color: #c88a35; /* Mustard Yellow */
+            font-weight: bold;
+        }
+
+        /* GAME CONTAINER */
+        main {
+            width: 90%;
+            max-width: 800px;
+            background-color: #eae1d0;
+            border: 2px solid #a68a64;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .game-section {
+            display: none;
+        }
+
+        .game-section.active {
+            display: block;
+        }
+
+        .turn-indicator {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding: 8px;
+            background-color: #d6c5b0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* GAME 1: CONGKLAK */
+        .congklak-board {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #6e473b; /* Wood Texture Color */
+            padding: 20px;
+            border-radius: 40px;
+            border: 4px solid #4a2e25;
+        }
+
+        .congklak-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .hole {
+            width: 60px;
+            height: 60px;
+            background-color: #4a2e25;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e2cbb4;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.6);
+            user-select: none;
+        }
+
+        .hole.store {
+            width: 80px;
+            height: 80px;
+            background-color: #38221b;
+            cursor: default;
+        }
+
+        .hole.disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        /* GAME 2: ULAR TANGGA */
+        .board-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .snakes-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            width: 300px;
+            height: 300px;
+            border: 3px solid #3b2f2f;
+        }
+
+        .tile {
+            border: 1px solid #a68a64;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 4px;
+            font-size: 0.8rem;
+            position: relative;
+        }
+
+        .tile:nth-child(even) {
+            background-color: #d8c4a9;
+        }
+
+        .tile:nth-child(odd) {
+            background-color: #c5b094;
+        }
+
+        .tile-players {
+            display: flex;
+            gap: 4px;
+        }
+
+        .player-pawn {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1px solid #3b2f2f;
+        }
+
+        .p1 { background-color: #8c3a27; } /* Red/Terracotta */
+        .p2 { background-color: #4a6b82; } /* Dusty Blue */
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background-color: #8c3a27;
+            color: #f4efe6;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .action-btn:disabled {
+            background-color: #a0938a;
+            cursor: not-allowed;
+        }
+
+        .info-panel {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #555;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Permainan Tradisional</h1>
+        <p>Koleksi Game Klasik Multiplayer Lokal</p>
+    </header>
+
+    <nav>
+        <button class="nav-btn active" onclick="switchGame('congklak')">Congklak</button>
+        <button class="nav-btn" onclick="switchGame('snakes')">Ular Tangga</button>
+    </nav>
+
+    <main>
+        <!-- CONGKLAK SECTION -->
+        <section id="congklak" class="game-section active">
+            <div class="turn-indicator" id="congklak-turn">Giliran: Pemain 1</div>
+            <div class="congklak-board">
+                <div class="congklak-row">
+                    <div class="hole store" id="store-p2">0</div>
+                    <div class="hole p2-hole" onclick="playCongklak(12)">7</div>
+                    <div class="hole p2-hole" onclick="playCongklak(11)">7</div>
+                    <div class="hole p2-hole" onclick="playCongklak(10)">7</div>
+                    <div class="hole p2-hole" onclick="playCongklak(9)">7</div>
+                    <div class="hole p2-hole" onclick="playCongklak(8)">7</div>
+                    <div class="hole p2-hole" onclick="playCongklak(7)">7</div>
+                    <div class="hole store" id="store-p1">0</div>
+                </div>
+                <div class="congklak-row">
+                    <div></div>
+                    <div class="hole p1-hole" onclick="playCongklak(0)">7</div>
+                    <div class="hole p1-hole" onclick="playCongklak(1)">7</div>
+                    <div class="hole p1-hole" onclick="playCongklak(2)">7</div>
+                    <div class="hole p1-hole" onclick="playCongklak(3)">7</div>
+                    <div class="hole p1-hole" onclick="playCongklak(4)">7</div>
+                    <div class="hole p1-hole" onclick="playCongklak(5)">7</div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="info-panel">
+                <p>Aturan Singkat: Pilih lubang di baris milik Anda untuk mendistribusikan biji secara searah jarum jam.</p>
+            </div>
+        </section>
+
+        <!-- ULAR TANGGA SECTION -->
+        <section id="snakes" class="game-section">
+            <div class="turn-indicator" id="snakes-turn">Giliran: Pemain 1</div>
+            <div class="board-wrapper">
+                <div class="snakes-board" id="board"></div>
+                <div class="controls">
+                    <button class="action-btn" id="roll-btn" onclick="rollDice()">Kocok Dadu</button>
+                    <div id="dice-result">Dadu: -</div>
+                </div>
+            </div>
+            <div class="info-panel">
+                <p>Aturan: Capai petak 25 untuk menang. Fitur Tangga di petak 3 & 12. Ular di petak 14 & 22.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // SWITCH GAME TABS
+        function switchGame(gameName) {
+            document.querySelectorAll('.game-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            
+            if(gameName === 'congklak') {
+                document.getElementById('congklak').classList.add('active');
+                event.target.classList.add('active');
+            } else if(gameName === 'snakes') {
+                document.getElementById('snakes').classList.add('active');
+                event.target.classList.add('active');
+            }
+        }
+
+        /* ----------------------------------
+           LOGIKA PERMAINAN CONGKLAK (Sederhana)
+        ---------------------------------- */
+        let congklakState = [7, 7, 7, 7, 7, 7, 0, 7, 7, 7, 7, 7, 7, 0];
+        let congklakTurn = 1; // 1: P1, 2: P2
+
+        function renderCongklak() {
+            const holes = document.querySelectorAll('.congklak-board .hole');
+            // Mapping urutan elemen HTML ke index state
+            const indexMap = [13, 12, 11, 10, 9, 8, 7, 6, 0, 1, 2, 3, 4, 5];
+            
+            indexMap.forEach((stateIdx, htmlIdx) => {
+                holes[htmlIdx].innerText = congklakState[stateIdx];
+            });
+
+            document.getElementById('congklak-turn').innerText = `Giliran: Pemain ${congklakTurn}`;
+        }
+
+        function playCongklak(index) {
+            // Validasi giliran
+            if (congklakTurn === 1 && (index < 0 || index > 5)) return;
+            if (congklakTurn === 2 && (index < 7 || index > 12)) return;
+            if (congklakState[index] === 0) return;
+
+            let seeds = congklakState[index];
+            congklakState[index] = 0;
+            let current = index;
+
+            while (seeds > 0) {
+                current = (current + 1) % 14;
+                // Lewati lumbung lawan
+                if (congklakTurn === 1 && current === 13) continue;
+                if (congklakTurn === 2 && current === 6) continue;
+
+                congklakState[current]++;
+                seeds--;
+            }
+
+            // Ganti giliran jika tidak berhenti di lumbung sendiri
+            if ((congklakTurn === 1 && current !== 6) || (congklakTurn === 2 && current !== 13)) {
+                congklakTurn = congklakTurn === 1 ? 2 : 1;
+            }
+
+            renderCongklak();
+        }
+
+        /* ----------------------------------
+           LOGIKA ULAR TANGGA (MODERN 5x5)
+        ---------------------------------- */
+        const pPositions = { 1: 1, 2: 1 };
+        let snakesTurn = 1;
+        const snakesAndLadders = {
+            3: 11,   // Tangga naik ke 11
+            12: 18,  // Tangga naik ke 18
+            14: 4,   // Ular turun ke 4
+            22: 8    // Ular turun ke 8
+        };
+
+        function buildBoard() {
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+            
+            // Generate petak 25 ke 1
+            for (let i = 25; i >= 1; i--) {
+                const tile = document.createElement('div');
+                tile.className = 'tile';
+                tile.id = `tile-${i}`;
+                
+                let extraText = '';
+                if (snakesAndLadders[i]) {
+                    extraText = snakesAndLadders[i] > i ? ' [T]' : ' [U]';
+                }
+                
+                tile.innerHTML = `<span>${i}${extraText}</span><div class="tile-players" id="players-${i}"></div>`;
+                board.appendChild(tile);
+            }
+            renderPawns();
+        }
+
+        function renderPawns() {
+            document.querySelectorAll('.tile-players').forEach(el => el.innerHTML = '');
+            
+            for (let player = 1; player <= 2; player++) {
+                const pos = pPositions[player];
+                const container = document.getElementById(`players-${pos}`);
+                if (container) {
+                    const pawn = document.createElement('div');
+                    pawn.className = `player-pawn p${player}`;
+                    container.appendChild(pawn);
+                }
+            }
+        }
+
+        function rollDice() {
+            const dice = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('dice-result').innerText = `Dadu: ${dice}`;
+            
+            let currentPos = pPositions[snakesTurn];
+            if (currentPos + dice <= 25) {
+                currentPos += dice;
+                // Cek Ular atau Tangga
+                if (snakesAndLadders[currentPos]) {
+                    currentPos = snakesAndLadders[currentPos];
+                }
+                pPositions[snakesTurn] = currentPos;
+            }
+
+            renderPawns();
+
+            // Cek Kemenangan
+            if (pPositions[snakesTurn] === 25) {
+                alert(`Pemain ${snakesTurn} Menang!`);
+                document.getElementById('roll-btn').disabled = true;
+                return;
+            }
+
+            // Ganti Giliran
+            snakesTurn = snakesTurn === 1 ? 2 : 1;
+            document.getElementById('snakes-turn').innerText = `Giliran: Pemain ${snakesTurn}`;
+        }
+
+        // Inisialisasi awal
+        renderCongklak();
+        buildBoard();
+    </script>
+</body>
+</html>

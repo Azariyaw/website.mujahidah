@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kedai Sushi Mini</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fdf6ec;
+            --card-bg: #ffffff;
+            --primary: #ff8b94;
+            --primary-hover: #ff737d;
+            --secondary: #ffaaa5;
+            --accent: #ffd3b6;
+            --text-dark: #4a4a4a;
+            --text-light: #7a7a7a;
+            --wood: #e8d0b5;
+            --wood-dark: #d4b896;
+            --success: #a8e6cf;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 4px solid #fff;
+        }
+
+        /* Header Dashboard */
+        .header {
+            background-color: var(--accent);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px dashed #f5c2a5;
+        }
+
+        .brand h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 26px;
+            color: #6b4f4f;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 8px 16px;
+            border-radius: 16px;
+            text-align: center;
+            min-width: 90px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--text-light);
+        }
+
+        .stat-value {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            color: #5a4040;
+        }
+
+        /* Area Game Utama */
+        .game-area {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            background: radial-gradient(circle at center, #ffffff 0%, #faf5ef 100%);
+        }
+
+        /* Area Pesanan */
+        .order-section {
+            background: #fff;
+            border: 2px solid #f0e6df;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .order-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .customer-bubble {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff8f6;
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 2px solid var(--secondary);
+        }
+
+        .target-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .target-ingredients {
+            display: flex;
+            gap: 6px;
+        }
+
+        .ing-tag {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+        }
+
+        /* Meja Pembuatan (Dapur) */
+        .prep-table {
+            background: var(--wood);
+            border-bottom: 8px solid var(--wood-dark);
+            border-radius: 20px;
+            padding: 25px;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .plate {
+            width: 80%;
+            height: 18px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.08);
+            position: absolute;
+            bottom: 20px;
+        }
+
+        .current-sushi {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            z-index: 2;
+            min-height: 40px;
+            margin-bottom: 10px;
+        }
+
+        .sushi-piece {
+            background: #ffffff;
+            border: 2px solid #e2e2e2;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Bahan-Bahan (Tombol) */
+        .ingredients-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 12px;
+        }
+
+        .ing-btn {
+            background: #ffffff;
+            border: 2px solid #ebdcd0;
+            border-radius: 16px;
+            padding: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 4px 0 #ebdcd0;
+        }
+
+        .ing-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #ebdcd0;
+            background: #fffdfb;
+        }
+
+        .ing-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #ebdcd0;
+        }
+
+        /* Kontrol Aksi */
+        .action-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 16px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-serve {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 0 #e06d76;
+        }
+
+        .btn-serve:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-serve:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #e06d76;
+        }
+
+        .btn-clear {
+            background: #e0e0e0;
+            color: #666;
+            box-shadow: 0 4px 0 #cccccc;
+            max-width: 120px;
+        }
+
+        .btn-clear:hover {
+            background: #d6d6d6;
+        }
+
+        .btn-clear:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #cccccc;
+        }
+
+        /* Pesan Notifikasi Pop-up */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success { background: #4ebd83; }
+        .toast.error { background: #ff5e5e; }
+        .toast.level-up { background: #ff9f43; }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="toast" id="toast">Pesan game</div>
+
+    <div class="game-container">
+        <!-- Header / Stats -->
+        <div class="header">
+            <div class="brand">
+                <h1>Kedai Sushi Mini</h1>
+            </div>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-label">Level</div>
+                    <div class="stat-value" id="level-val">1</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Koin</div>
+                    <div class="stat-value" id="score-val">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gameplay -->
+        <div class="game-area">
+            
+            <!-- Pesanan Pelanggan -->
+            <div class="order-section">
+                <div class="order-title">Pesanan Pelanggan</div>
+                <div class="customer-bubble">
+                    <div class="target-name" id="target-sushi-name">Nama Sushi</div>
+                    <div class="target-ingredients" id="target-ingredients"></div>
+                </div>
+            </div>
+
+            <!-- Meja Dapur -->
+            <div class="prep-table">
+                <div class="current-sushi" id="current-assembly">
+                    <!-- Bahan-bahan yang dipilih akan tampil di sini -->
+                </div>
+                <div class="plate"></div>
+            </div>
+
+            <!-- Ditingkatkan Seiring Level -->
+            <div class="ingredients-section">
+                <div class="section-label">Pilih Bahan</div>
+                <div class="ingredients-grid" id="ingredients-grid">
+                    <!-- Tombol bahan di-generate via JavaScript -->
+                </div>
+            </div>
+
+            <!-- Kontrol Aksi -->
+            <div class="action-controls">
+                <button class="btn btn-clear" onclick="clearPlate()">Batal</button>
+                <button class="btn btn-serve" onclick="serveOrder()">Sajikan Pesanan</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Database Bahan & Resep
+        const ALL_INGREDIENTS = [
+            { id: "Nasi", label: "Nasi", levelRequired: 1 },
+            { id: "Nori", label: "Nori", levelRequired: 1 },
+            { id: "Timun", label: "Timun", levelRequired: 1 },
+            { id: "Salmon", label: "Salmon", levelRequired: 2 },
+            { id: "Alpukat", label: "Alpukat", levelRequired: 3 },
+            { id: "Tuna", label: "Tuna", levelRequired: 4 },
+            { id: "Mayonaise", label: "Mayonaise", levelRequired: 5 }
+        ];
+
+        const ALL_RECIPES = [
+            { name: "Kappa Maki", ingredients: ["Nasi", "Nori", "Timun"], levelRequired: 1 },
+            { name: "Salmon Roll", ingredients: ["Nasi", "Nori", "Salmon"], levelRequired: 2 },
+            { name: "Avocado Roll", ingredients: ["Nasi", "Nori", "Alpukat"], levelRequired: 3 },
+            { name: "Salmon Avocado", ingredients: ["Nasi", "Nori", "Salmon", "Alpukat"], levelRequired: 3 },
+            { name: "Tuna Roll", ingredients: ["Nasi", "Nori", "Tuna"], levelRequired: 4 },
+            { name: "Spicy Tuna", ingredients: ["Nasi", "Nori", "Tuna", "Mayonaise"], levelRequired: 5 },
+            { name: "Special Roll", ingredients: ["Nasi", "Nori", "Salmon", "Tuna", "Mayonaise"], levelRequired: 5 }
+        ];
+
+        // State Game
+        let currentLevel = 1;
+        let currentScore = 0;
+        let currentOrder = null;
+        let currentAssembly = [];
+
+        // Inisialisasi Game
+        function initGame() {
+            renderIngredients();
+            generateNewOrder();
+            updateUI();
+        }
+
+        // Render Tombol Bahan Sesuai Level
+        function renderIngredients() {
+            const grid = document.getElementById("ingredients-grid");
+            grid.innerHTML = "";
+
+            ALL_INGREDIENTS.forEach(ing => {
+                if (ing.levelRequired <= currentLevel) {
+                    const btn = document.createElement("button");
+                    btn.className = "ing-btn";
+                    btn.innerText = ing.label;
+                    btn.onclick = () => addIngredient(ing.id);
+                    grid.appendChild(btn);
+                }
+            });
+        }
+
+        // Generate Pesanan Baru Sesuai Level Saat Ini
+        function generateNewOrder() {
+            const availableRecipes = ALL_RECIPES.filter(r => r.levelRequired <= currentLevel);
+            const randomIndex = Math.floor(Math.random() * availableRecipes.length);
+            currentOrder = availableRecipes[randomIndex];
+
+            document.getElementById("target-sushi-name").innerText = currentOrder.name;
+            
+            const ingContainer = document.getElementById("target-ingredients");
+            ingContainer.innerHTML = "";
+            currentOrder.ingredients.forEach(ing => {
+                const tag = document.createElement("span");
+                tag.className = "ing-tag";
+                tag.innerText = ing;
+                ingContainer.appendChild(tag);
+            });
+        }
+
+        // Tambah Bahan ke Piring
+        function addIngredient(ingredientId) {
+            currentAssembly.push(ingredientId);
+            renderAssembly();
+        }
+
+        // Render Tampilan Bahan di Piring
+        function renderAssembly() {
+            const container = document.getElementById("current-assembly");
+            container.innerHTML = "";
+
+            currentAssembly.forEach(item => {
+                const el = document.createElement("div");
+                el.className = "sushi-piece";
+                el.innerText = item;
+                container.appendChild(el);
+            });
+        }
+
+        // Bersihkan Piring
+        function clearPlate() {
+            currentAssembly = [];
+            renderAssembly();
+        }
+
+        // Sajikan Pesanan & Cek Kebenaran
+        function serveOrder() {
+            if (currentAssembly.length === 0) return;
+
+            const isCorrect = checkRecipeMatch(currentAssembly, currentOrder.ingredients);
+
+            if (isCorrect) {
+                currentScore += 15;
+                showToast("Pesanan Sempurna! +15 Koin", "success");
+                checkLevelProgress();
+                clearPlate();
+                generateNewOrder();
+            } else {
+                showToast("Bahan tidak sesuai, coba lagi!", "error");
+                clearPlate();
+            }
+
+            updateUI();
+        }
+
+        // Cek Kesamaan Bahan tanpa Memperdulikan Urutan
+        function checkRecipeMatch(arr1, arr2) {
+            if (arr1.length !== arr2.length) return false;
+            const sorted1 = [...arr1].sort();
+            const sorted2 = [...arr2].sort();
+            return sorted1.every((value, index) => value === sorted2[index]);
+        }
+
+        // Sistem Kenaikan Level
+        function checkLevelProgress() {
+            // Level naik setiap kelipatan 45 koin
+            const nextLevel = Math.floor(currentScore / 45) + 1;
+
+            if (nextLevel > currentLevel) {
+                currentLevel = nextLevel;
+                showToast(`Level Naik ke Level ${currentLevel}! Menu Baru Terbuka!`, "level-up");
+                renderIngredients();
+            }
+        }
+
+        // Update Tampilan Stats
+        function updateUI() {
+            document.getElementById("level-val").innerText = currentLevel;
+            document.getElementById("score-val").innerText = currentScore;
+        }
+
+        // Notifikasi Toast
+        function showToast(message, type = "success") {
+            const toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.className = `toast show ${type}`;
+
+            setTimeout(() => {
+                toast.className = "toast";
+            }, 2500);
+        }
+
+        // Jalankan Game saat Halaman Selesai Dimuat
+        window.onload = initGame;
+    </script>
+</body>
+</html>
