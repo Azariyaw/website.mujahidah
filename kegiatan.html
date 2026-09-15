@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kegiatan Game Mujahidah ✨ - Portal Game Imut</title>
+    <!-- Font Lucu dari Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variable Warna & Tema Pinky Girl */
+        :root {
+            --pink-main: #ff8fa3;
+            --pink-soft: #ffb3c1;
+            --pink-bg: #fff0f5;
+            --pink-dark: #ff4d6d;
+            --pink-card: #ffffff;
+            --text-color: #590d22;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background-color: var(--pink-bg);
+            background-image: radial-gradient(#ffc2d1 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header & Navigasi Utama */
+        header {
+            background: linear-gradient(135deg, #ffb3c1, #ff8fa3);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #ff4d6d;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+        }
+
+        .logo-container h1 {
+            font-family: 'Fredoka', cursive;
+            color: #ffffff;
+            font-size: 26px;
+            text-shadow: 2px 2px 0px var(--pink-dark);
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Fredoka', cursive;
+            font-size: 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: #ffffff;
+            color: var(--pink-dark);
+            transform: scale(1.05);
+        }
+
+        /* Section Title & Hint */
+        main {
+            flex: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px 40px;
+            width: 100%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-family: 'Fredoka', cursive;
+            font-size: 32px;
+            color: var(--pink-dark);
+            margin-bottom: 8px;
+        }
+
+        .editable-hint {
+            font-size: 13px;
+            color: var(--pink-dark);
+            background-color: #ffe5ec;
+            padding: 6px 16px;
+            border-radius: 15px;
+            display: inline-block;
+            border: 1px dashed var(--pink-main);
+        }
+
+        /* Daftar Kegiatan Game */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .activity-card {
+            background-color: var(--pink-card);
+            border: 3px solid var(--pink-soft);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(255, 143, 163, 0.2);
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .activity-card:hover {
+            border-color: var(--pink-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.25);
+        }
+
+        .activity-icon {
+            width: 80px;
+            height: 80px;
+            min-width: 80px;
+            background-color: #ffe5ec;
+            border: 2px solid var(--pink-soft);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .activity-content {
+            flex-grow: 1;
+        }
+
+        /* Format Teks Dapat Diedit */
+        [contenteditable="true"] {
+            outline: none;
+            transition: all 0.2s ease;
+            border-radius: 6px;
+            padding: 2px 4px;
+        }
+
+        [contenteditable="true"]:hover {
+            background-color: #fff0f5;
+            box-shadow: 0 0 0 2px var(--pink-soft);
+        }
+
+        [contenteditable="true"]:focus {
+            background-color: #ffffff;
+            box-shadow: 0 0 0 2px var(--pink-dark);
+        }
+
+        .activity-title {
+            font-family: 'Fredoka', cursive;
+            font-size: 22px;
+            color: var(--pink-dark);
+            margin-bottom: 8px;
+        }
+
+        .activity-desc {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .activity-features {
+            background-color: #fff0f5;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        .activity-features strong {
+            color: var(--pink-dark);
+            font-family: 'Fredoka', cursive;
+        }
+
+        /* Responsif Seluler */
+        @media (max-width: 600px) {
+            .activity-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: #ffccd5;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--text-color);
+            font-weight: 600;
+            border-top: 3px dashed var(--pink-main);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigasi -->
+    <header>
+        <div class="logo-container">
+            <span class="logo-icon">👑</span>
+            <h1>Game Mujahidah</h1>
+        </div>
+        <nav>
+            <a href="index.html">🌸 Beranda</a>
+            <a href="profile.html">🎀 Profil</a>
+            <a href="galeri.html">🖼️ Galeri</a>
+            <a href="kegiatan.html" class="active">✨ Kegiatan</a>
+            <a href="kontak.html">💌 Kontak</a>
+        </nav>
+    </header>
+
+    <!-- Konten Utama: Kegiatan Game -->
+    <main>
+        <div class="section-header">
+            <h2>✨ Kegiatan & Fitur Game ✨</h2>
+            <span class="editable-hint">💡 Klik teks di bawah untuk mengubah penjelasan game sesuai kebutuhanmu!</span>
+        </div>
+
+        <div class="activity-list">
+
+            <!-- Game 1: Awa -->
+            <div class="activity-card">
+                <div class="activity-icon" contenteditable="true">🌸</div>
+                <div class="activity-content">
+                    <h3 class="activity-title" contenteditable="true">Petualangan Manis di Game Awa 🎀</h3>
+                    <p class="activity-desc" contenteditable="true">
+                        Game Awa membawa kamu masuk ke dunia petualangan fantasi yang penuh warna. Di sini, kegiatan utamamu adalah mengeksplorasi wilayah imut, menyelesaikan misi teka-teki ringan, serta mengumpulkan item-item langka untuk mempercantik karakter Awa.
+                    </p>
+                    <div class="activity-features">
+                        <strong>🎯 Fitur Utama:</strong> <span contenteditable="true">Eksplorasi Peta Imut, Misi Harian, Dekorasi Karakter.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game 2: Areen -->
+            <div class="activity-card">
+                <div class="activity-icon" contenteditable="true">👑</div>
+                <div class="activity-content">
+                    <h3 class="activity-title" contenteditable="true">Tantangan Strategi di Game Areen 👑</h3>
+                    <p class="activity-desc" contenteditable="true">
+                        Game Areen dirancang khusus untuk menguji ketangkasan dan fokusmu! Kegiatan bermain meliputi penyusunan strategi pertahanan kerajaan, mengalahkan berbagai tantangan di setiap level, serta memadukan skill unik untuk menjadi juara arena.
+                    </p>
+                    <div class="activity-features">
+                        <strong>🎯 Fitur Utama:</strong> <span contenteditable="true">Pertempuran Strategi, Mode Level Seru, Hadiah Mahkota.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game 3: Mentary -->
+            <div class="activity-card">
+                <div class="activity-icon" contenteditable="true">🌻</div>
+                <div class="activity-content">
+                    <h3 class="activity-title" contenteditable="true">Kecerian Berkebun di Game Mentary ☀️</h3>
+                    <p class="activity-desc" contenteditable="true">
+                        Ingin suasana santai? Game Mentary menyajikan kegiatan simulasi mengelola kebun dan desa yang ceria. Kamu bisa menanam bunga warna-warni, merawat hewan peliharaan yang menggemaskan, serta menata desa impianmu sendiri.
+                    </p>
+                    <div class="activity-features">
+                        <strong>🎯 Fitur Utama:</strong> <span contenteditable="true">Simulasi Berkebun, Merawat Hewan, Mode Rileks & Santai.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game 4: Aila -->
+            <div class="activity-card">
+                <div class="activity-icon" contenteditable="true">🌷</div>
+                <div class="activity-content">
+                    <h3 class="activity-title" contenteditable="true">Dunia Fashion & Kreativitas di Game Aila 🌷</h3>
+                    <p class="activity-desc" contenteditable="true">
+                        Game Aila berfokus pada kreativitas dan seni tata busana. Kegiatan utama di game ini adalah mendesain pakaian imut, memadu padankan aksesori cantik, serta mengikuti kontes fashion show virtual untuk mendapatkan skor tertinggi!
+                    </p>
+                    <div class="activity-features">
+                        <strong>🎯 Fitur Utama:</strong> <span contenteditable="true">Dress-up & Makeup, Kontes Fashion, Koleksi Gaun Cantik.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>💖 Dibuat khusus untuk Gamer Mujahidah | 2026 💖</p>
+    </footer>
+
+</body>
+</html>

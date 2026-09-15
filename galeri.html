@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Mujahidah 🖼️ - Portal Game Imut</title>
+    <!-- Font Lucu dari Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variable Warna & Tema Pinky Girl */
+        :root {
+            --pink-main: #ff8fa3;
+            --pink-soft: #ffb3c1;
+            --pink-bg: #fff0f5;
+            --pink-dark: #ff4d6d;
+            --pink-card: #ffffff;
+            --text-color: #590d22;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background-color: var(--pink-bg);
+            background-image: radial-gradient(#ffc2d1 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header & Navigasi Utama */
+        header {
+            background: linear-gradient(135deg, #ffb3c1, #ff8fa3);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #ff4d6d;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+        }
+
+        .logo-container h1 {
+            font-family: 'Fredoka', cursive;
+            color: #ffffff;
+            font-size: 26px;
+            text-shadow: 2px 2px 0px var(--pink-dark);
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Fredoka', cursive;
+            font-size: 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: #ffffff;
+            color: var(--pink-dark);
+            transform: scale(1.05);
+        }
+
+        /* Konten utama */
+        main {
+            flex: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 20px 40px;
+            width: 100%;
+        }
+
+        .hint-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .editable-hint {
+            text-align: center;
+            font-size: 13px;
+            color: var(--pink-dark);
+            background-color: #ffe5ec;
+            padding: 8px 18px;
+            border-radius: 15px;
+            display: inline-block;
+            border: 1px dashed var(--pink-main);
+        }
+
+        /* Grid Galeri (3 Gambar) */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .gallery-card {
+            background-color: var(--pink-card);
+            border: 3px solid var(--pink-soft);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(255, 143, 163, 0.25);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--pink-dark);
+        }
+
+        /* Area Tempat Gambar */
+        .img-upload-box {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background-color: #ffe5ec;
+            border-bottom: 3px solid var(--pink-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .img-upload-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Tersembunyi sampai gambar diupload */
+        }
+
+        .upload-placeholder {
+            text-align: center;
+            color: var(--pink-dark);
+            padding: 10px;
+        }
+
+        .upload-placeholder span {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .upload-placeholder p {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .file-input {
+            display: none; /* Menyembunyikan input file asli */
+        }
+
+        /* Information & Editable Text */
+        .gallery-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        [contenteditable="true"] {
+            outline: none;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            padding: 2px 4px;
+        }
+
+        [contenteditable="true"]:hover {
+            background-color: #fff0f5;
+            box-shadow: 0 0 0 2px var(--pink-soft);
+        }
+
+        [contenteditable="true"]:focus {
+            background-color: #ffffff;
+            box-shadow: 0 0 0 2px var(--pink-dark);
+        }
+
+        .gallery-title {
+            font-family: 'Fredoka', cursive;
+            font-size: 20px;
+            color: var(--pink-dark);
+            margin-bottom: 8px;
+        }
+
+        .gallery-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #ffccd5;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--text-color);
+            font-weight: 600;
+            border-top: 3px dashed var(--pink-main);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigasi -->
+    <header>
+        <div class="logo-container">
+            <span class="logo-icon">👑</span>
+            <h1>Game Mujahidah</h1>
+        </div>
+        <nav>
+            <a href="index.html">🌸 Beranda</a>
+            <a href="profile.html">🎀 Profil</a>
+            <a href="galeri.html" class="active">🖼️ Galeri</a>
+            <a href="kegiatan.html">✨ Kegiatan</a>
+            <a href="kontak.html">💌 Kontak</a>
+        </nav>
+    </header>
+
+    <!-- Konten Utama: Galeri -->
+    <main>
+        <div class="hint-container">
+            <span class="editable-hint">✨ Klik kotak gambar untuk memilih foto, dan klik teks di bawahnya untuk mengedit tulisan! ✨</span>
+        </div>
+
+        <div class="gallery-grid">
+            
+            <!-- Kartu Gambar 1 -->
+            <div class="gallery-card">
+                <div class="img-upload-box" onclick="triggerUpload(1)">
+                    <div class="upload-placeholder" id="placeholder-1">
+                        <span>🖼️</span>
+                        <p>Klik untuk Pilih Gambar 1</p>
+                    </div>
+                    <img id="preview-1" alt="Preview Gambar 1">
+                </div>
+                <input type="file" id="input-1" class="file-input" accept="image/*" onchange="previewImage(event, 1)">
+                
+                <div class="gallery-info">
+                    <h3 class="gallery-title" contenteditable="true">Momen Mabar Seru 🎮</h3>
+                    <p class="gallery-desc" contenteditable="true">Tuliskan kenangan indah atau deskripsi foto pertamamu di sini! 💕</p>
+                </div>
+            </div>
+
+            <!-- Kartu Gambar 2 -->
+            <div class="gallery-card">
+                <div class="img-upload-box" onclick="triggerUpload(2)">
+                    <div class="upload-placeholder" id="placeholder-2">
+                        <span>🌸</span>
+                        <p>Klik untuk Pilih Gambar 2</p>
+                    </div>
+                    <img id="preview-2" alt="Preview Gambar 2">
+                </div>
+                <input type="file" id="input-2" class="file-input" accept="image/*" onchange="previewImage(event, 2)">
+                
+                <div class="gallery-info">
+                    <h3 class="gallery-title" contenteditable="true">Kemenangan Pertama 🏆</h3>
+                    <p class="gallery-desc" contenteditable="true">Tuliskan cerita saat kamu berhasil memenangkan game kesukaanmu! ✨</p>
+                </div>
+            </div>
+
+            <!-- Kartu Gambar 3 -->
+            <div class="gallery-card">
+                <div class="img-upload-box" onclick="triggerUpload(3)">
+                    <div class="upload-placeholder" id="placeholder-3">
+                        <span>🎀</span>
+                        <p>Klik untuk Pilih Gambar 3</p>
+                    </div>
+                    <img id="preview-3" alt="Preview Gambar 3">
+                </div>
+                <input type="file" id="input-3" class="file-input" accept="image/*" onchange="previewImage(event, 3)">
+                
+                <div class="gallery-info">
+                    <h3 class="gallery-title" contenteditable="true">Karakter Imutku ✨</h3>
+                    <p class="gallery-desc" contenteditable="true">Tuliskan info atau cerita menarik seputar gambar ketiga ini! 💖</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>💖 Dibuat khusus untuk Gamer Mujahidah | 2026 💖</p>
+    </footer>
+
+    <!-- Script JavaScript untuk Memproses Upload Gambar -->
+    <script>
+        function triggerUpload(id) {
+            document.getElementById('input-' + id).click();
+        }
+
+        function previewImage(event, id) {
+            const input = event.target;
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('preview-' + id);
+                    const placeholder = document.getElementById('placeholder-' + id);
+                    
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    placeholder.style.display = 'none';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+</body>
+</html>

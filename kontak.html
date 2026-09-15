@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak Pemilik Game 💌 - Portal Game Imut</title>
+    <!-- Font Lucu dari Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variable Warna & Tema Pinky Girl */
+        :root {
+            --pink-main: #ff8fa3;
+            --pink-soft: #ffb3c1;
+            --pink-bg: #fff0f5;
+            --pink-dark: #ff4d6d;
+            --pink-card: #ffffff;
+            --text-color: #590d22;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background-color: var(--pink-bg);
+            background-image: radial-gradient(#ffc2d1 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header & Navigasi Utama */
+        header {
+            background: linear-gradient(135deg, #ffb3c1, #ff8fa3);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #ff4d6d;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+        }
+
+        .logo-container h1 {
+            font-family: 'Fredoka', cursive;
+            color: #ffffff;
+            font-size: 26px;
+            text-shadow: 2px 2px 0px var(--pink-dark);
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Fredoka', cursive;
+            font-size: 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: #ffffff;
+            color: var(--pink-dark);
+            transform: scale(1.05);
+        }
+
+        /* Container & Header */
+        main {
+            flex: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px 40px;
+            width: 100%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-family: 'Fredoka', cursive;
+            font-size: 32px;
+            color: var(--pink-dark);
+            margin-bottom: 8px;
+        }
+
+        .editable-hint {
+            font-size: 13px;
+            color: var(--pink-dark);
+            background-color: #ffe5ec;
+            padding: 6px 16px;
+            border-radius: 15px;
+            display: inline-block;
+            border: 1px dashed var(--pink-main);
+        }
+
+        /* Grid 5 Kartu Kontak */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .contact-card {
+            background-color: var(--pink-card);
+            border: 3px solid var(--pink-soft);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(255, 143, 163, 0.2);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            border-color: var(--pink-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.3);
+        }
+
+        .card-header-icon {
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        /* Format Teks Dapat Diedit */
+        [contenteditable="true"] {
+            outline: none;
+            transition: all 0.2s ease;
+            border-radius: 6px;
+            padding: 2px 4px;
+        }
+
+        [contenteditable="true"]:hover {
+            background-color: #fff0f5;
+            box-shadow: 0 0 0 2px var(--pink-soft);
+        }
+
+        [contenteditable="true"]:focus {
+            background-color: #ffffff;
+            box-shadow: 0 0 0 2px var(--pink-dark);
+        }
+
+        /* Data Diri List */
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .info-item {
+            background-color: #fff0f5;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--pink-soft);
+        }
+
+        .info-item strong {
+            color: var(--pink-dark);
+            font-family: 'Fredoka', cursive;
+        }
+
+        /* Quotes Box */
+        .quote-box {
+            background-color: #ffe5ec;
+            border-left: 4px solid var(--pink-dark);
+            padding: 12px;
+            border-radius: 8px;
+            font-style: italic;
+            font-size: 13px;
+            color: #800f2f;
+            margin-top: auto;
+        }
+
+        .quote-box strong {
+            display: block;
+            font-style: normal;
+            font-family: 'Fredoka', cursive;
+            color: var(--pink-dark);
+            margin-bottom: 3px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #ffccd5;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--text-color);
+            font-weight: 600;
+            border-top: 3px dashed var(--pink-main);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigasi -->
+    <header>
+        <div class="logo-container">
+            <span class="logo-icon">👑</span>
+            <h1>Game Mujahidah</h1>
+        </div>
+        <nav>
+            <a href="index.html">🌸 Beranda</a>
+            <a href="profile.html">🎀 Profil</a>
+            <a href="galeri.html">🖼️ Galeri</a>
+            <a href="kegiatan.html">✨ Kegiatan</a>
+            <a href="kontak.html" class="active">💌 Kontak</a>
+        </nav>
+    </header>
+
+    <!-- Konten Utama: Kontak Pemilik -->
+    <main>
+        <div class="section-header">
+            <h2>💌 Data Diri Pemilik Game 💌</h2>
+            <span class="editable-hint">💡 Klik teks mana saja pada kartu untuk mengisi data diri dan quotes kamu!</span>
+        </div>
+
+        <div class="contact-grid">
+
+            <!-- Pemilik 1: Game Awa -->
+            <div class="contact-card">
+                <div class="card-header-icon" contenteditable="true">🌸</div>
+                <div class="info-list">
+                    <div class="info-item"><strong>👤 Nama:</strong> <span contenteditable="true">Awa (Games Claw)</span></div>
+                    <div class="info-item"><strong>📸 Instagram:</strong> <span contenteditable="true">@zzwaa4</span></div>
+                    <div class="info-item"><strong>🎂 Umur:</strong> <span contenteditable="true">15 Tahun</span></div>
+                    <div class="info-item"><strong>🏫 Asal Sekolah:</strong> <span contenteditable="true">MTs Miftahul Huda</span></div>
+                    <div class="info-item"><strong>📚 Asal Kelas:</strong> <span contenteditable="true">9Al-Himmah</span></div>
+                </div>
+                <div class="quote-box">
+                    <strong>💬 Quotes Favorit:</strong>
+                    <span contenteditable="true">"Teruslah melangkah, walau pelan yang penting tidak berhenti! ✨"</span>
+                </div>
+            </div>
+
+            <!-- Pemilik 2: Game Areen -->
+            <div class="contact-card">
+                <div class="card-header-icon" contenteditable="true">👑</div>
+                <div class="info-list">
+                    <div class="info-item"><strong>👤 Nama:</strong> <span contenteditable="true">Areen (Sylvanian Unbox Club)</span></div>
+                    <div class="info-item"><strong>📸 Instagram:</strong> <span contenteditable="true">@aireen.rin</span></div>
+                    <div class="info-item"><strong>🎂 Umur:</strong> <span contenteditable="true">14 Tahun</span></div>
+                    <div class="info-item"><strong>🏫 Asal Sekolah:</strong> <span contenteditable="true">MTs Miftahul Huda</span></div>
+                    <div class="info-item"><strong>📚 Asal Kelas:</strong> <span contenteditable="true">9Al-Himmah</span></div>
+                </div>
+                <div class="quote-box">
+                    <strong>💬 Quotes Favorit:</strong>
+                    <span contenteditable="true">"Jadilah pemenang untuk dirimu sendiri sebelum mengalahkan orang lain! 🏆"</span>
+                </div>
+            </div>
+
+            <!-- Pemilik 3: Game Mentary -->
+            <div class="contact-card">
+                <div class="card-header-icon" contenteditable="true">☀️</div>
+                <div class="info-list">
+                    <div class="info-item"><strong>👤 Nama:</strong> <span contenteditable="true">Mentary (Permainan Tradisional)</span></div>
+                    <div class="info-item"><strong>📸 Instagram:</strong> <span contenteditable="true">@mentaryassyifaputri</span></div>
+                    <div class="info-item"><strong>🎂 Umur:</strong> <span contenteditable="true">14 Tahun</span></div>
+                    <div class="info-item"><strong>🏫 Asal Sekolah:</strong> <span contenteditable="true">MTs Miftahul Huda</span></div>
+                    <div class="info-item"><strong>📚 Asal Kelas:</strong> <span contenteditable="true">9Al-Himmah</span></div>
+                </div>
+                <div class="quote-box">
+                    <strong>💬 Quotes Favorit:</strong>
+                    <span contenteditable="true">"Bawa kehangatan dan keceriaan ke mana pun kamu pergi! 🌻"</span>
+                </div>
+            </div>
+
+            <!-- Pemilik 4: Game Aila -->
+            <div class="contact-card">
+                <div class="card-header-icon" contenteditable="true">🌷</div>
+                <div class="info-list">
+                    <div class="info-item"><strong>👤 Nama:</strong> <span contenteditable="true">Aila (Sushi yay!)</span></div>
+                    <div class="info-item"><strong>📸 Instagram:</strong> <span contenteditable="true">@kireinalaa__</span></div>
+                    <div class="info-item"><strong>🎂 Umur:</strong> <span contenteditable="true">14 Tahun</span></div>
+                    <div class="info-item"><strong>🏫 Asal Sekolah:</strong> <span contenteditable="true">Mts Miftahul Huda</span></div>
+                    <div class="info-item"><strong>📚 Asal Kelas:</strong> <span contenteditable="true">9Al-Himmah</span></div>
+                </div>
+                <div class="quote-box">
+                    <strong>💬 Quotes Favorit:</strong>
+                    <span contenteditable="true">"Kreativitas adalah kecantikan yang tidak akan pernah pudar! 💖"</span>
+                </div>
+            </div>
+
+            <!-- Pemilik 5: Anggota Tambahan -->
+            <div class="contact-card">
+                <div class="card-header-icon" contenteditable="true">🎀</div>
+                <div class="info-list">
+                    <div class="info-item"><strong>👤 Nama:</strong> <span contenteditable="true">Isi Nama Kamu</span></div>
+                    <div class="info-item"><strong>📸 Instagram:</strong> <span contenteditable="true">@username_ig</span></div>
+                    <div class="info-item"><strong>🎂 Umur:</strong> <span contenteditable="true">16 Tahun</span></div>
+                    <div class="info-item"><strong>🏫 Asal Sekolah:</strong> <span contenteditable="true">Nama Sekolah</span></div>
+                    <div class="info-item"><strong>📚 Asal Kelas:</strong> <span contenteditable="true">Nama Kelas</span></div>
+                </div>
+                <div class="quote-box">
+                    <strong>💬 Quotes Favorit:</strong>
+                    <span contenteditable="true">"Tuliskan kata-kata motivasi atau quotes favoritmu di sini! ✨"</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>💖 Dibuat khusus untuk Gamer Mujahidah | 2026 💖</p>
+    </footer>
+
+</body>
+</html>
